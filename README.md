@@ -18,6 +18,10 @@ Currently, two official plugins are available:
 
 - Step 4: Open Command line cd web-do-an: git checkout dev
 
-- Step 5: Open Command line cd web-do-an: npm install
+- Step 5: Open Command line cd web-do-an: git pull
 
-- Step 6: Open Command line cd web-do-an: npm run dev
+- Step 6: Open Command line cd web-do-an: git branch [tên nhánh mới]
+
+- Step 7: Open Command line cd web-do-an: npm install
+
+- Step 8: Open Command line cd web-do-an: npm run dev

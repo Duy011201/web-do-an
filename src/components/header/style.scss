@@ -3,14 +3,10 @@
   height: var(--height-header);
   position: fixed;
   z-index: var(--z-index-main-header);
+  border-bottom: 1px solid #F2F2F2;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 
   .wrap-logo {
     user-select: none;
-  }
-
-  .wrap-user {
-    color: black;
-    width: 50px;
-    height: 44px;
   }
 }

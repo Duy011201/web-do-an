@@ -6,17 +6,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Header() {
   const [role, setRole] = useState("");
-  console.log(setting);
   useEffect(() => {
-    localStorage.setItem("role", "employee");
+    // localStorage.setItem("role", "admin");
+    // localStorage.setItem("role", "employee");
     // localStorage.setItem("role", "user");
-    // localStorage.setItem("role", "");
+    localStorage.setItem("role", "");
     setRole(setting.roleLocal);
-    console.log(role);
+    // console.log(role);
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary wrap-header">
+    <nav className="navbar navbar-expand-lg wrap-header bg-primary">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           Thế giới di động
@@ -34,78 +34,119 @@ export default function Header() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {role === "" ? (
+            {role === "admin" ? (
               <>
                 <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href="#">
-                    Trang chủ
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href="#">
-                    Đăng nhập
-                  </a>
-                </li>
-              </>
-            ) : role === "user" ? (
-              <>
-                <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href="#">
-                    Giỏ hàng
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href="#">
-                    Hóa đơn
-                  </a>
-                </li>
-              </>
-            ) : role === "employee" ? (
-              <>
-                <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href="#">
+                  <Link className="nav-link" aria-current="page" to="/product">
                     Sản phẩm
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href="#">
-                    Người dùng
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" aria-current="page" href="#">
+                  <Link className="nav-link" aria-current="page" to="/cart">
                     Giỏ hàng
-                  </a>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" aria-current="page" to="/user">
+                    Người dùng
+                  </Link>
                 </li>
                 <li className="nav-item dropdown">
-                  <a
+                  <Link
                     className="nav-link dropdown-toggle"
-                    href="#"
+                    to="#"
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
                     Hóa đơn
-                  </a>
+                  </Link>
                   <ul className="dropdown-menu">
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <Link className="dropdown-item" to="/invoice">
                         Quản lý hóa đơn
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <Link className="dropdown-item" to="/detail-invoice">
                         Quản lý chi tiết hóa đơn
-                      </a>
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+              </>
+            ) : role === "user" ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" aria-current="page" to="/invoice">
+                    Giỏ hàng
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link"
+                    aria-current="page"
+                    to="/detail-invoice"
+                  >
+                    Hóa đơn
+                  </Link>
+                </li>
+              </>
+            ) : role === "employee" ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" aria-current="page" to="/product">
+                    Sản phẩm
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" aria-current="page" to="/cart">
+                    Giỏ hàng
+                  </Link>
+                </li>
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    to="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Hóa đơn
+                  </Link>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link className="dropdown-item" to="/invoice">
+                        Quản lý hóa đơn
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/detail-invoice">
+                        Quản lý chi tiết hóa đơn
+                      </Link>
                     </li>
                   </ul>
                 </li>
               </>
             ) : (
-              <></>
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/">
+                    Trang chủ
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" aria-current="page" to="/login">
+                    Đăng nhập
+                  </Link>
+                </li>
+              </>
             )}
           </ul>
           {role === "user" || role === "employee" || role === "admin" ? (
@@ -117,7 +158,7 @@ export default function Header() {
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle"
-                    href="#"
+                    to="#"
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -126,17 +167,17 @@ export default function Header() {
                   </a>
                   <ul className="dropdown-menu">
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <Link className="dropdown-item" to="/personal">
                         Thông tin cá nhân
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <Link className="dropdown-item" to="/logout">
                         Đăng xuất
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </li>
@@ -152,7 +193,7 @@ export default function Header() {
               placeholder="Search"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-light" type="submit">
               Search
             </button>
           </form>
