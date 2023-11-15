@@ -8,40 +8,9 @@
     user-select: none;
   }
 
-  .wrap-navbar {
-    a {
-      position: relative;
-
-      &::after {
-        content: "";
-        position: absolute;
-        height: 2px;
-        width: 100%;
-        background-color: var(--cl-white);
-        left: 0;
-        bottom: -6px;
-        border-radius: 5px;
-        transform: scaleX(0);
-        transition: transform 0.5s;
-      }
-
-      &:hover::after {
-        transform: scaleX(1);
-      }
-    }
-  }
-
-  .wrap-auth {
-    padding: 5px 15px;
-    border: 2px solid var(--cl-white);
-    background-color: transparent;
-    color: var(--cl-white);
-    border-radius: 5px;
-
-    &:hover {
-      background-color: var(transparent);
-      color: var(--cl-black);
-      border: 2px solid var(--cl-black);
-    }
+  .wrap-user {
+    color: black;
+    width: 50px;
+    height: 44px;
   }
 }

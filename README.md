@@ -13,11 +13,11 @@ Currently, two official plugins are available:
 - Step 2: Install Git                    [https://git-scm.com/downloads]
   
 - Step 3: Clone project (Choose 1 of 2 ways):
-  + Command line: git clone https://github.com/Duy011201/web-erp.git
-  + Download ZIP: open [https://github.com/Duy011201/web-erp] -> Code -> Download ZIP
+  + Command line: git clone https://github.com/Duy011201/web-do-an.git
+  + Download ZIP: open [https://github.com/Duy011201/web-do-an] -> Code -> Download ZIP
 
-- Step 4: Open Command line cd web-erp: git checkout dev
+- Step 4: Open Command line cd web-do-an: git checkout dev
 
-- Step 5: Open Command line cd web-erp: npm install
+- Step 5: Open Command line cd web-do-an: npm install
 
-- Step 6: Open Command line cd web-erp: npm run dev
+- Step 6: Open Command line cd web-do-an: npm run dev
