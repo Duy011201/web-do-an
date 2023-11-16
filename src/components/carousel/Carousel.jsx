@@ -15,13 +15,25 @@ const Carousel = props => {
   return (
     <Slider {...settings}>
       <div>
-        <img style={props.sizeImg} src="./src/assets/images/img-qc-galaxy.webp" />
+        <img
+          style={props.sizeImg}
+          src="./src/assets/images/img-qc-galaxy.webp"
+        />
       </div>
       <div>
         <img style={props.sizeImg} src="./src/assets/images/img-qc-oppo.webp" />
       </div>
       <div>
-        <img style={props.sizeImg} src="./src/assets/images/img-qc-redmi.webp" />
+        <img
+          style={props.sizeImg}
+          src="./src/assets/images/img-qc-redmi.webp"
+        />
+      </div>
+      <div>
+        <img
+          style={props.sizeImg}
+          src="./src/assets/images/img-qc-realme.webp"
+        />
       </div>
     </Slider>
   );
