@@ -3,6 +3,7 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import Loading from "../../components/loading/Loading";
 import Carousel from "../../components/carousel/Carousel";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./style.scss";
 
 export default function Home() {
@@ -31,7 +32,7 @@ export default function Home() {
       moTa: "Description for Product 1",
       heDieuHanh: "OS 1",
       anh: "./src/assets/images/img-google-pixel-2xl.jpg",
-      donGia: '27.500.000',
+      donGia: "27.500.000",
       baoHanh: "Warranty 1",
       mauSac: "Color 1",
     },
@@ -123,9 +124,18 @@ export default function Home() {
                         <img src={item.anh} />
                       </p>
                     </div>
-                    <div className="pl-30 pr-30">
-                      <h3 className="fw-bold mb-10">{item.ten}</h3>
-                      <span className="price p-1">{item.donGia}</span>
+                    <div className="pl-30 pr-30 d-flex justify-content-between">
+                      <div>
+                        <h3 className="fw-bold mb-10">{item.ten}</h3>
+                        <span className="price p-1">{item.donGia}</span>
+                      </div>
+                      <div>
+                        Thêm giỏ hàng
+                        <FontAwesomeIcon
+                          className="icon-cart"
+                          icon="fa-solid fa-cart-shopping"
+                        />
+                      </div>
                     </div>
                   </div>
                 ))}

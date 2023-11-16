@@ -58,7 +58,7 @@
 
       .item-product {
         flex-basis: 33%;
-        height: 400px;
+        height: 375px;
         border-radius: 3px;
 
         &:hover {
@@ -95,6 +95,11 @@
           color: white;
           background-color: red;
           border-radius: 10px;
+        }
+
+        .icon-cart {
+          color: red;
+          font-size: 30px;
         }
       }
     }
