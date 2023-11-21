@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { error, success } from "/src/common/sweetalert2.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "../../../components/loading/Loading";
+import { LOGIN } from "../../service";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -12,14 +13,28 @@ export default function Login() {
   });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = e => {
+  const handleSubmit =  async e => {
     e.preventDefault();
-    if (
-      formData.email === "nguyenduy011201@gmail.com" &&
-      formData.password === "123"
-    ) {
+    let response;
+    try {
+      let user = {
+        email: formData.email,
+        matKhau: formData.password
+      }
+      response = await LOGIN(user)
+        .then(response => response.data)
+        .catch(error => {
+          console.error("Error fetching all login:", error);
+          throw error;
+        });
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+    
+    if (response.status === 200) {
       success("Login Success");
-      window.location = "/dashboard";
+      window.location = "http://localhost:5173/";
       return;
     } else {
       error("Login Failed");
@@ -32,12 +47,12 @@ export default function Login() {
     setFormData({ ...formData, [name]: value });
   };
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 500);
+  // }, []);
 
   return (
     <div
