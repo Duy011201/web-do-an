@@ -1,51 +1,69 @@
 import React, { useState, useEffect } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import dayjs from "dayjs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import Loading from "../../components/loading/Loading";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DataGrid } from "@mui/x-data-grid";
+
 import "./style.scss";
+import { GET_ALL_COMMENT } from "../service.js";
+import setting from "../../setting.js";
 
 export default function Comment() {
   const [loading, setLoading] = useState(false);
+  const [listComment, setListComment] = useState([]);
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "firstName", headerName: "First name", width: 130 },
-    { field: "lastName", headerName: "Last name", width: 130 },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      width: 90,
-    },
-    {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-      valueGetter: params =>
-        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-    },
-  ];
-
-  const rows = [
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+    { field: "id", headerName: "id", width: 70 },
+    { field: "hoten", headerName: "Người bình luận", width: 100 },
+    { field: "tenSanPham", headerName: "Tên sản phẩm", width: 150 },
+    { field: "noiDung", headerName: "Nội dung", width: 300 },
+    { field: "ngayTao", headerName: "Ngày tạo", width: 150 },
+    { field: "trangThai", headerName: "Trạng thái", width: 90 },
+    // {
+    //   field: "fullName",
+    //   headerName: "Full name",
+    //   description: "This column has a value getter and is not sortable.",
+    //   sortable: false,
+    //   width: 160,
+    //   valueGetter: params =>
+    //     `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    // },
   ];
 
   useEffect(() => {
-    setLoading(true);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await GET_ALL_COMMENT()
+          .then(response => response.data)
+          .catch(error => {
+            console.error("Error fetching all comments:", error);
+            throw error;
+          });
+
+        const formattedComments = response.data.map(e => {
+          return {
+            ...e,
+            ngayTao: e.ngayTao ? dayjs(e.ngayTao).format("DD/MM/YYYY") : null,
+            trangThai:
+              e.trangThai && e.trangThai === setting.COMMENT_STATUS.PENDING
+                ? setting.COMMENT_MSG.PENDING
+                : setting.COMMENT_MSG.APPROVED,
+          };
+        });
+        setListComment(formattedComments);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+
     setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 1000);
   }, []);
 
   return (
@@ -62,7 +80,7 @@ export default function Comment() {
 
             <div className="mt-20" style={{ height: 400, width: "100%" }}>
               <DataGrid
-                rows={rows}
+                rows={listComment}
                 columns={columns}
                 initialState={{
                   pagination: {
@@ -70,7 +88,6 @@ export default function Comment() {
                   },
                 }}
                 pageSizeOptions={[5, 10]}
-                checkboxSelection
               />
             </div>
           </div>

@@ -43,6 +43,16 @@ const URL_API = {
   GET_ALL_PRODUCT: "/product/all",
 };
 
+const COMMENT_STATUS = {
+  PENDING: "pending",
+  APPROVED: "approved",
+};
+
+const COMMENT_MSG = {
+  PENDING: "Chờ duyệt",
+  APPROVED: "Đã duyệt",
+};
+
 const setting = Object.freeze({
   ROLE_LOCAL,
   LIST_ROLE,
@@ -50,6 +60,8 @@ const setting = Object.freeze({
   LIST_FILTER_PRODUCER,
   BASE_URL,
   URL_API,
+  COMMENT_STATUS,
+  COMMENT_MSG,
 });
 
 export default setting;

@@ -12,6 +12,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [listProduct, setListProduct] = useState([]);
   const sizeImgCarouselTop = { height: "100%", with: "100%" };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -22,10 +23,9 @@ export default function Home() {
             throw error;
           });
         setListProduct(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
       }
     };
     fetchData();
