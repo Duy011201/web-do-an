@@ -1,3 +1,10 @@
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import dayjs from "dayjs";
@@ -14,23 +21,61 @@ import setting from "../../setting.js";
 export default function Comment() {
   const [loading, setLoading] = useState(false);
   const [listComment, setListComment] = useState([]);
+  const [open, setOpen] = React.useState(false);
   const columns = [
     { field: "id", headerName: "id", width: 70 },
-    { field: "hoten", headerName: "Người bình luận", width: 100 },
-    { field: "tenSanPham", headerName: "Tên sản phẩm", width: 150 },
+    { field: "hoten", headerName: "Người bình luận", width: 150 },
+    { field: "tenSanPham", headerName: "Tên sản phẩm", width: 130 },
     { field: "noiDung", headerName: "Nội dung", width: 300 },
     { field: "ngayTao", headerName: "Ngày tạo", width: 150 },
-    { field: "trangThai", headerName: "Trạng thái", width: 90 },
-    // {
-    //   field: "fullName",
-    //   headerName: "Full name",
-    //   description: "This column has a value getter and is not sortable.",
-    //   sortable: false,
-    //   width: 160,
-    //   valueGetter: params =>
-    //     `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-    // },
+    {
+      field: "titleTrangThai",
+      headerName: "Trạng thái",
+      width: 90,
+      renderCell: params => (
+        <div
+          style={{
+            color:
+              params.value === setting.COMMENT_STATUS.PENDING
+                ? "orange"
+                : "green",
+          }}
+        >
+          {params.value}
+        </div>
+      ),
+    },
+    {
+      field: "",
+      headerName: "Thao tác",
+      sortable: false,
+      filterable: false,
+      resizable: false,
+      width: 160,
+      renderCell: params => (
+        <div className="d-flex justify-content-center w-100">
+          <button type="button" className="btn btn-primary">
+            Sửa
+          </button>
+          <button type="button" className="ml-10 btn btn-danger">
+            Xóa
+          </button>
+        </div>
+      ),
+    },
   ];
+
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,8 +91,9 @@ export default function Comment() {
         const formattedComments = response.data.map(e => {
           return {
             ...e,
-            ngayTao: e.ngayTao ? dayjs(e.ngayTao).format("DD/MM/YYYY") : null,
-            trangThai:
+            ngayTao: e.ngayTao ? dayjs(e.ngayTao).format("DD/MM/YYYY") : "",
+            codeTrangThai: e.trangThai,
+            titleTrangThai:
               e.trangThai && e.trangThai === setting.COMMENT_STATUS.PENDING
                 ? setting.COMMENT_MSG.PENDING
                 : setting.COMMENT_MSG.APPROVED,
@@ -88,9 +134,13 @@ export default function Comment() {
                   },
                 }}
                 pageSizeOptions={[5, 10]}
+                disableColumnSelector
               />
             </div>
           </div>
+          {/* {open ? () :
+
+          } */}
           <Footer />
         </>
       )}
