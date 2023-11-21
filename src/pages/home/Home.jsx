@@ -5,66 +5,30 @@ import Loading from "../../components/loading/Loading";
 import Carousel from "../../components/carousel/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./style.scss";
+import setting from "../../setting.js";
+import { GET_ALL_PRODUCT } from "../service.js";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
+  const [listProduct, setListProduct] = useState([]);
   const sizeImgCarouselTop = { height: "100%", with: "100%" };
-  const listFilterProducer = [
-    { key: "all", name: "Tất cả" },
-    { key: "apple", name: "Apple" },
-    { key: "samsung", name: "Samsung" },
-    { key: "oppo", name: "Oppo" },
-    { key: "xiaomi", name: "Xiaomi" },
-    { key: "realme", name: "Realme" },
-  ];
-  const listFilterPrice = [
-    { key: "all", name: "Tất cả" },
-    { key: "<2", name: "Dưới 2 triệu" },
-    { key: "2-4", name: "Từ 2 - 4 triêu" },
-    { key: "4-7", name: "Từ 4 - 7 triêu" },
-    { key: ">7", name: "Trên 7 triêu" },
-  ];
-  const listProduct = [
-    {
-      promotionID: 1,
-      supplierID: 1,
-      ten: "Iphone 13 pro max",
-      moTa: "Description for Product 1",
-      heDieuHanh: "OS 1",
-      anh: "./src/assets/images/img-google-pixel-2xl.jpg",
-      donGia: "27.500.000",
-      baoHanh: "Warranty 1",
-      mauSac: "Color 1",
-    },
-    {
-      promotionID: 2,
-      supplierID: 2,
-      ten: "Product 2",
-      moTa: "Description for Product 2",
-      heDieuHanh: "OS 2",
-      anh: "./src/assets/images/img-iphone-8.jpg",
-      donGia: 150.0,
-      baoHanh: "Warranty 2",
-      mauSac: "Color 2",
-    },
-    {
-      promotionID: 2,
-      supplierID: 2,
-      ten: "Product 2",
-      moTa: "Description for Product 2",
-      heDieuHanh: "OS 2",
-      anh: "./src/assets/images/img-iphone-8.jpg",
-      donGia: 150.0,
-      baoHanh: "Warranty 2",
-      mauSac: "Color 2",
-    },
-  ];
-
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    const fetchData = async () => {
+      try {
+        const response = await GET_ALL_PRODUCT()
+          .then(response => response.data)
+          .catch(error => {
+            console.error("Error fetching all products:", error);
+            throw error;
+          });
+        setListProduct(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
   return (
@@ -96,7 +60,7 @@ export default function Home() {
             <div className="wrap-container-product row col-md-12 mt-20">
               <div className="col-md-2">
                 <h5 className="fw-bolder mb-10">Hãng sản xuất</h5>
-                {listFilterProducer.map(item => (
+                {setting.LIST_FILTER_PRODUCER.map(item => (
                   <label
                     className="item-filter-producer d-block"
                     key={item.key}
@@ -106,7 +70,7 @@ export default function Home() {
                   </label>
                 ))}
                 <h5 className="fw-bolder mb-10 mt-20">Giá bán</h5>
-                {listFilterPrice.map(item => (
+                {setting.LIST_FILTER_PRICE.map(item => (
                   <label
                     className="item-filter-producer d-block"
                     key={item.key}
