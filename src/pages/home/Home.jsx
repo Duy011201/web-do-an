@@ -48,6 +48,7 @@ export default function Home() {
       mauSac: "Color 2",
     },
     {
+      
       promotionID: 2,
       supplierID: 2,
       ten: "Product 2",
