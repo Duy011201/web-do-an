@@ -7,20 +7,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Header() {
   const [role, setRole] = useState("");
   useEffect(() => {
-    // localStorage.setItem("role", "admin");
+    localStorage.setItem("role", "admin");
     // localStorage.setItem("role", "employee");
     // localStorage.setItem("role", "user");
-    localStorage.setItem("role", "");
-    setRole(setting.roleLocal);
-    // console.log(role);
+    // localStorage.setItem("role", "");
+    setRole(setting.ROLE_LOCAL);
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-lg wrap-header bg-primary">
+    <nav className="navbar navbar-expand-lg wrap-header">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           Thế giới di động
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"

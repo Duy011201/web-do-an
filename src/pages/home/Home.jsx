@@ -5,66 +5,59 @@ import Loading from "../../components/loading/Loading";
 import Carousel from "../../components/carousel/Carousel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./style.scss";
+import setting from "../../setting.js";
+import { GET_ALL_PRODUCT } from "../service.js";
+import dayjs from "dayjs";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
+  const [listProduct, setListProduct] = useState([]);
   const sizeImgCarouselTop = { height: "100%", with: "100%" };
-  const listFilterProducer = [
-    { key: "all", name: "Tất cả" },
-    { key: "apple", name: "Apple" },
-    { key: "samsung", name: "Samsung" },
-    { key: "oppo", name: "Oppo" },
-    { key: "xiaomi", name: "Xiaomi" },
-    { key: "realme", name: "Realme" },
-  ];
-  const listFilterPrice = [
-    { key: "all", name: "Tất cả" },
-    { key: "<2", name: "Dưới 2 triệu" },
-    { key: "2-4", name: "Từ 2 - 4 triêu" },
-    { key: "4-7", name: "Từ 4 - 7 triêu" },
-    { key: ">7", name: "Trên 7 triêu" },
-  ];
-  const listProduct = [
-    {
-      promotionID: 1,
-      supplierID: 1,
-      ten: "Iphone 13 pro max",
-      moTa: "Description for Product 1",
-      heDieuHanh: "OS 1",
-      anh: "./src/assets/images/img-google-pixel-2xl.jpg",
-      donGia: "27.500.000",
-      baoHanh: "Warranty 1",
-      mauSac: "Color 1",
-    },
-    {
-      promotionID: 2,
-      supplierID: 2,
-      ten: "Product 2",
-      moTa: "Description for Product 2",
-      heDieuHanh: "OS 2",
-      anh: "./src/assets/images/img-iphone-8.jpg",
-      donGia: 150.0,
-      baoHanh: "Warranty 2",
-      mauSac: "Color 2",
-    },
-    {
-      promotionID: 2,
-      supplierID: 2,
-      ten: "Product 2",
-      moTa: "Description for Product 2",
-      heDieuHanh: "OS 2",
-      anh: "./src/assets/images/img-iphone-8.jpg",
-      donGia: 150.0,
-      baoHanh: "Warranty 2",
-      mauSac: "Color 2",
-    },
-  ];
+
+  function formatCurrency(amount) {
+    const formatter = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+    return formatter.format(amount);
+  }
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    const fetchData = async () => {
+      try {
+        const response = await GET_ALL_PRODUCT()
+          .then(response => response.data)
+          .catch(error => {
+            console.error("Error fetching all products:", error);
+            throw error;
+          });
+
+        const formattedProducts = response.data.map(e => {
+          const tuNgayFormatted = e.tuNgay
+            ? dayjs(e.tuNgay).format("DD/MM/YYYY hh:mm:ss")
+            : "";
+          const denNgayFormatted = e.denNgay
+            ? dayjs(e.denNgay).format("DD/MM/YYYY hh:mm:ss")
+            : "";
+          const donGia = formatCurrency(e.donGia);
+          const code = new Date(e.denNgay) <= new Date(e.tuNgay) ? 0 : e.code;
+          const giaKhuyenMai = formatCurrency((e.donGia * code) / 100);
+          return {
+            ...e,
+            ngayTao: e.ngayTao ? dayjs(e.ngayTao).format("DD/MM/YYYY") : "",
+            tuNgay: tuNgayFormatted,
+            denNgay: denNgayFormatted,
+            donGia: donGia,
+            giaKhuyenMai: giaKhuyenMai,
+          };
+        });
+        setListProduct(formattedProducts);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
   }, []);
 
   return (
@@ -96,7 +89,7 @@ export default function Home() {
             <div className="wrap-container-product row col-md-12 mt-20">
               <div className="col-md-2">
                 <h5 className="fw-bolder mb-10">Hãng sản xuất</h5>
-                {listFilterProducer.map(item => (
+                {setting.LIST_FILTER_PRODUCER.map(item => (
                   <label
                     className="item-filter-producer d-block"
                     key={item.key}
@@ -106,7 +99,7 @@ export default function Home() {
                   </label>
                 ))}
                 <h5 className="fw-bolder mb-10 mt-20">Giá bán</h5>
-                {listFilterPrice.map(item => (
+                {setting.LIST_FILTER_PRICE.map(item => (
                   <label
                     className="item-filter-producer d-block"
                     key={item.key}
@@ -116,7 +109,7 @@ export default function Home() {
                   </label>
                 ))}
               </div>
-              <div className="col-md-10 list-product">
+              <div className="col-md-10 list-product container-fluid">
                 {listProduct.map(item => (
                   <div className="item-product" key={item.id}>
                     <div className="w-100 d-flex justify-content-center">
@@ -124,17 +117,25 @@ export default function Home() {
                         <img src={item.anh} />
                       </p>
                     </div>
-                    <div className="pl-30 pr-30 d-flex justify-content-between">
+                    <div className="pl-30 pr-30">
                       <div>
                         <h3 className="fw-bold mb-10">{item.ten}</h3>
-                        <span className="price p-1">{item.donGia}</span>
+                        <p className="d-flex justify-content-between">
+                          <span className="discount p-2">
+                            {item.giaKhuyenMai}
+                          </span>
+                          <span className="cost p-1">{item.donGia}</span>
+                        </p>
                       </div>
                       <div>
-                        Thêm giỏ hàng
-                        <FontAwesomeIcon
-                          className="icon-cart"
-                          icon="fa-solid fa-cart-shopping"
-                        />
+                        <img
+                          className="rounded-circle"
+                          src="https://images.fpt.shop/unsafe/fit-in/45x45/filters:quality(90):fill(white)/https://s3-sgn09.fptcloud.com/ict-k8s-promotion-prod/images-promotion/Zalopay-1693187470025.png"
+                        ></img>
+                        <img
+                          className="rounded-circle"
+                          src="https://images.fpt.shop/unsafe/fit-in/45x45/filters:quality(90):fill(white)/https://s3-sgn09.fptcloud.com/ict-k8s-promotion-prod/images-promotion/Vnapy-1693370130549.png"
+                        ></img>
                       </div>
                     </div>
                   </div>
