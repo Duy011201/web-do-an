@@ -38,10 +38,12 @@ const LIST_FILTER_PRICE = [
 
 const BASE_URL = "http://localhost:8080/api";
 const URL_API = {
-
   LOGIN: "/login",
 
+  GET_COMMENT_BY_ID: "/comment",
   GET_ALL_COMMENT: "/comment/all",
+  DELETE_COMMENT_BY_ID: "/comment",
+  UPDATE_COMMENT_BY_ID: "/comment/update",
 
   GET_ALL_PRODUCT: "/product/all",
 };
@@ -56,6 +58,20 @@ const COMMENT_MSG = {
   APPROVED: "Đã duyệt",
 };
 
+const ACTION = {
+  ADD: "add",
+  UPDATE: "update",
+  DELETE: "delete",
+  OPEN: true,
+  CLOSE: false,
+};
+
+const STATUS_CODE = {
+  OK: 200,
+  NOT_FOUND: 404,
+  SERVER_ERROR: 500,
+};
+
 const setting = Object.freeze({
   ROLE_LOCAL,
   LIST_ROLE,
@@ -65,6 +81,8 @@ const setting = Object.freeze({
   URL_API,
   COMMENT_STATUS,
   COMMENT_MSG,
+  ACTION,
+  STATUS_CODE,
 });
 
 export default setting;

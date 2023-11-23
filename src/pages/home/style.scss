@@ -58,7 +58,7 @@
 
       .item-product {
         flex-basis: 33%;
-        height: 375px;
+        height: 420px;
         border-radius: 3px;
 
         &:hover {
@@ -89,17 +89,24 @@
           }
         }
 
-        .price {
+        .discount {
           font-size: 25px;
           font-weight: 700;
           color: white;
           background-color: red;
-          border-radius: 10px;
+          border-radius: 20px;
         }
 
         .icon-cart {
           color: red;
           font-size: 30px;
+        }
+
+        .cost {
+          text-decoration: underline;
+          text-decoration-color: black;
+          text-align: center;
+          display: inline-block;
         }
       }
     }
