@@ -9,33 +9,32 @@ import dayjs from "dayjs";
 import { error, success, confirmDialog } from "../../common/sweetalert2.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Header from "../../components/header/Header";
-import Footer from "../../components/footer/Footer";
-import Loading from "../../components/loading/Loading";
+import Header from "../../components/header/Header.jsx";
+import Footer from "../../components/footer/Footer.jsx";
+import Loading from "../../components/loading/Loading.jsx";
 
 import "./style.scss";
 import {
-  GET_ALL_COMMENT,
-  DELETE_COMMENT_BY_ID,
-  UPDATE_COMMENT_BY_ID,
-  CREATE_COMMENT,
+  GET_ALL_SUPPlIER,
+  DELETE_SUPPlIER_BY_ID,
+  UPDATE_SUPPlIER_BY_ID,
+  CREATE_SUPPlIER,
 } from "../service.js";
 import setting from "../../setting.js";
 
-export default function Comment() {
+export default function Supplier() {
   const [loading, setLoading] = useState(false);
-  const [listComment, setListComment] = useState([]);
+  const [listSupplier, setListSupplier] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [action, setAction] = React.useState("");
   const [formData, setFormData] = useState({
     id: "",
-    productID: "",
-    hoten: "",
-    tenSanPham: "",
-    noiDung: "",
+    ten: "",
+    diaChi: "",
+    email: "",
+    sdt: "",
     ngayTao: "",
     ngaySua: "",
-    trangThai: "",
   });
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -47,30 +46,12 @@ export default function Comment() {
 
   const columns = [
     { field: "id", headerName: "id", width: 70 },
-    { field: "hoten", headerName: "Người bình luận", width: 150 },
-    { field: "tenSanPham", headerName: "Tên sản phẩm", width: 130 },
-    { field: "noiDung", headerName: "Nội dung", width: 300 },
+    { field: "ten", headerName: "Tên", width: 150 },
+    { field: "diaChi", headerName: "Địa chỉ", width: 130 },
+    { field: "email", headerName: "Email", width: 180 },
+    { field: "sdt", headerName: "Số điện thoại", width: 120 },
     { field: "ngayTao", headerName: "Ngày tạo", width: 150 },
     { field: "ngaySua", headerName: "Ngày sửa", width: 150 },
-    {
-      field: "trangThai",
-      headerName: "Trạng thái",
-      width: 90,
-      renderCell: params => (
-        <div
-          style={{
-            color:
-              params.value === setting.COMMENT_STATUS.PENDING
-                ? "orange"
-                : "green",
-          }}
-        >
-          {params.value && params.value === setting.COMMENT_STATUS.PENDING
-            ? setting.COMMENT_MSG.PENDING
-            : setting.COMMENT_MSG.APPROVED}
-        </div>
-      ),
-    },
     {
       field: "",
       headerName: "Thao tác",
@@ -105,28 +86,29 @@ export default function Comment() {
     },
   ];
 
-  const updateComment = async () => {
+  const updateSupplier = async () => {
     setLoading(true);
     setOpen(false);
-    await UPDATE_COMMENT_BY_ID(formData).then(res => {
+    await UPDATE_SUPPlIER_BY_ID(formData).then(res => {
       setLoading(false);
       if (res.status === setting.STATUS_CODE.OK) {
         success(res.data.msg);
-        getALLComment();
+        getALLSupplier();
       } else {
         error(res.data.msg);
       }
     });
   };
 
-  const createComment = async () => {
+  const createSupplier = async () => {
     setLoading(true);
     setOpen(false);
-    await CREATE_COMMENT(formData).then(res => {
+    console.log(formData);
+    await CREATE_SUPPlIER(formData).then(res => {
       setLoading(false);
       if (res.status === setting.STATUS_CODE.OK) {
         success(res.data.msg);
-        getALLComment();
+        getALLSupplier();
       } else {
         error(res.data.msg);
       }
@@ -136,6 +118,9 @@ export default function Comment() {
   const handleDialog = async (status, action, data) => {
     switch (action) {
       case setting.ACTION.ADD:
+        if (status === setting.ACTION.OPEN) {
+          setFormData({});
+        }
         break;
       case setting.ACTION.UPDATE:
         if (status === setting.ACTION.OPEN) {
@@ -145,14 +130,14 @@ export default function Comment() {
         }
         break;
       case setting.ACTION.DELETE:
-        confirmDialog("Bạn muốn xóa bình luận này!").then(async result => {
+        confirmDialog("Bạn muốn xóa nhà cung cấp này!").then(async result => {
           if (result.value) {
             setLoading(true);
-            await DELETE_COMMENT_BY_ID(data.id).then(res => {
+            await DELETE_SUPPlIER_BY_ID(data.id).then(res => {
               setLoading(false);
               if (res.status === setting.STATUS_CODE.OK) {
                 success(res.data.msg);
-                getALLComment();
+                getALLSupplier();
               } else {
                 error(res.data.msg);
               }
@@ -165,14 +150,14 @@ export default function Comment() {
     setOpen(status);
   };
 
-  const getALLComment = async () => {
+  const getALLSupplier = async () => {
     try {
       setLoading(true);
-      let listComment;
-      await GET_ALL_COMMENT().then(res => {
+      let listSupplier;
+      await GET_ALL_SUPPlIER().then(res => {
         setLoading(false);
         if (res.status === setting.STATUS_CODE.OK) {
-          listComment = res.data.data.map(e => {
+          listSupplier = res.data.data.map(e => {
             return {
               ...e,
               ngayTao: e.ngayTao ? dayjs(e.ngayTao).format("DD/MM/YYYY") : "",
@@ -183,7 +168,7 @@ export default function Comment() {
           error(res.data.msg);
         }
       });
-      setListComment(listComment);
+      setListSupplier(listSupplier);
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
@@ -193,7 +178,7 @@ export default function Comment() {
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      getALLComment();
+      getALLSupplier();
     }, 500);
   }, []);
 
@@ -205,13 +190,25 @@ export default function Comment() {
         <>
           <Header />
           <div className="container-sm">
-            <h2 className="fw-700 mt-20 pl-10 title-page">
-              Quản lý đánh giá bình luận
-            </h2>
+            <div className="d-flex justify-content-between mt-20">
+              <span className="fw-700 pl-10 title-page font-30">
+                Quản lý nhà cung cấp
+              </span>
+              <button
+                type="button"
+                className="ml-10 btn btn-primary"
+                onClick={() =>
+                  handleDialog(setting.ACTION.OPEN, setting.ACTION.ADD, {})
+                }
+              >
+                <FontAwesomeIcon className="icon-add mr-5" icon="fas fa-plus" />
+                Thêm mới
+              </button>
+            </div>
 
             <div className="mt-20" style={{ height: 400, width: "100%" }}>
               <DataGrid
-                rows={listComment}
+                rows={listSupplier}
                 columns={columns}
                 initialState={{
                   pagination: {
@@ -228,57 +225,68 @@ export default function Comment() {
             keepMounted
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogTitle>{`${
-              action === setting.ACTION.ADD
-                ? "Thêm"
-                : action === setting.ACTION.UPDATE
-                ? "Sửa"
-                : "Xóa"
-            } bình luận`}</DialogTitle>
+            <DialogTitle>
+              {`${
+                action === setting.ACTION.ADD
+                  ? "Thêm"
+                  : action === setting.ACTION.UPDATE
+                  ? "Sửa"
+                  : "Xóa"
+              } nhà cung cấp`}
+            </DialogTitle>
             <DialogContent>
-              <div className="form-group mt-10">
-                <label htmlFor="inputEmail">Tên sản phẩm</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="tenSanPham"
-                  value={formData.tenSanPham}
-                  placeholder="Nhập tên sản phẩm"
-                  onChange={handleInputChange}
-                  disabled
-                  required
-                />
+              <div className="row">
+                <div className="form-group mt-10 col-md-6">
+                  <label htmlFor="inputTen">Tên nhà cung cấp</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="ten"
+                    value={formData.ten}
+                    placeholder="Nhập tên nhà cung cấp"
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="form-group mt-10 col-md-6">
+                  <label htmlFor="inputDiaChi">Địa chỉ</label>
+                  <input
+                    type="text"
+                    name="diaChi"
+                    value={formData.diaChi}
+                    onChange={handleInputChange}
+                    className="form-control"
+                    placeholder="Nhập địa chỉ"
+                    required
+                  />
+                </div>
               </div>
-              <div className="form-group mt-10">
-                <label htmlFor="inputPassword">Nội dung</label>
-                <input
-                  type="text"
-                  name="noiDung"
-                  value={formData.noiDung}
-                  onChange={handleInputChange}
-                  className="form-control"
-                  placeholder="Nhập nội dung"
-                  disabled
-                  required
-                />
+              <div className="row">
+                <div className="form-group mt-10 col-md-6">
+                  <label htmlFor="inputSoDienThoai">Số điện thoại</label>
+                  <input
+                    type="text"
+                    name="sdt"
+                    value={formData.sdt}
+                    onChange={handleInputChange}
+                    className="form-control"
+                    placeholder="Nhập số điện thoại"
+                    required
+                  />
+                </div>
+                <div className="form-group mt-10 col-md-6">
+                  <label htmlFor="inputEmail">Email</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="email"
+                    value={formData.email}
+                    placeholder="Nhập email"
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
               </div>
-              <select
-                className="form-select mt-15"
-                aria-label="Default select example"
-                value={formData.trangThai}
-                onChange={handleInputChange}
-                name="trangThai"
-              >
-                <option value="" disabled>
-                  Chọn trạng thái
-                </option>
-                <option value={setting.COMMENT_STATUS.PENDING}>
-                  {setting.COMMENT_MSG.PENDING}
-                </option>
-                <option value={setting.COMMENT_STATUS.APPROVED}>
-                  {setting.COMMENT_MSG.APPROVED}
-                </option>
-              </select>
             </DialogContent>
             <DialogActions>
               <Button
@@ -288,10 +296,10 @@ export default function Comment() {
               </Button>
               {action === setting.ACTION.ADD ? (
                 <>
-                  <Button onClick={() => createComment()}>Thêm mới</Button>
+                  <Button onClick={() => createSupplier()}>Thêm mới</Button>
                 </>
               ) : (
-                <Button onClick={() => updateComment()}>Lưu</Button>
+                <Button onClick={() => updateSupplier()}>Lưu</Button>
               )}
             </DialogActions>
           </Dialog>

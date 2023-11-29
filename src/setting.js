@@ -40,8 +40,14 @@ const URL_API = {
 
   GET_COMMENT_BY_ID: "/comment",
   GET_ALL_COMMENT: "/comment/all",
-  DELETE_COMMENT_BY_ID: "/comment",
+  DELETE_COMMENT_BY_ID: "/comment/delete",
   UPDATE_COMMENT_BY_ID: "/comment/update",
+
+  GET_SUPPlIER_BY_ID: "/supplier",
+  GET_ALL_SUPPlIER: "/supplier/all",
+  CREATE_SUPPlIER: "/supplier/create",
+  DELETE_SUPPlIER_BY_ID: "/supplier/delete",
+  UPDATE_SUPPlIER_BY_ID: "/supplier/update",
 
   GET_ALL_PRODUCT: "/product/all",
 };

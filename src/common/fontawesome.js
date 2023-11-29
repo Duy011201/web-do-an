@@ -6,6 +6,19 @@ import {
   faUser,
   faCartShopping,
   faArrowRotateLeft,
+  faPlus,
+  faPencil,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(fab, faEnvelope, faLock, faUser, faCartShopping, faArrowRotateLeft);
+library.add(
+  fab,
+  faEnvelope,
+  faLock,
+  faUser,
+  faCartShopping,
+  faArrowRotateLeft,
+  faPlus,
+  faPencil,
+  faTrash
+);
