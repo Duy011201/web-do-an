@@ -20,20 +20,18 @@ const LIST_ROLE = [
 ];
 
 const LIST_FILTER_PRODUCER = [
-  { key: "all", name: "Tất cả" },
-  { key: "apple", name: "Apple" },
-  { key: "samsung", name: "Samsung" },
-  { key: "oppo", name: "Oppo" },
-  { key: "xiaomi", name: "Xiaomi" },
-  { key: "realme", name: "Realme" },
+  { key: "apple", name: "Apple", isChecked: false },
+  { key: "samsung", name: "Samsung", isChecked: false },
+  { key: "oppo", name: "Oppo", isChecked: false },
+  { key: "xiaomi", name: "Xiaomi", isChecked: false },
+  { key: "realme", name: "Realme", isChecked: false },
 ];
 
 const LIST_FILTER_PRICE = [
-  { key: "all", name: "Tất cả" },
-  { key: "<2", name: "Dưới 2 triệu" },
-  { key: "2-4", name: "Từ 2 - 4 triêu" },
-  { key: "4-7", name: "Từ 4 - 7 triêu" },
-  { key: ">7", name: "Trên 7 triêu" },
+  { key: "<2", name: "Dưới 2 triệu", isChecked: false },
+  { key: "2-4", name: "Từ 2 - 4 triêu", isChecked: false },
+  { key: "4-7", name: "Từ 4 - 7 triêu", isChecked: false },
+  { key: ">7", name: "Trên 7 triêu", isChecked: false },
 ];
 
 const BASE_URL = "http://localhost:8080/api";

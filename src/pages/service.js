@@ -7,17 +7,20 @@ export const LOGIN = user => {
 };
 
 // Product
-export const GET_ALL_PRODUCT = () => {
-  return axios.get(setting.BASE_URL + setting.URL_API.GET_ALL_PRODUCT);
+export const GET_ALL_PRODUCT = payload => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.GET_ALL_PRODUCT,
+    payload
+  );
 };
 
 // Comment
 export const GET_ALL_COMMENT = () => {
-  return axios.get(setting.BASE_URL + setting.URL_API.GET_ALL_COMMENT);
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_COMMENT);
 };
 
 export const GET_COMMENT_BY_ID = id => {
-  return axios.get(
+  return axios.post(
     `${setting.BASE_URL}${setting.URL_API.GET_COMMENT_BY_ID}?id=${id}`
   );
 };

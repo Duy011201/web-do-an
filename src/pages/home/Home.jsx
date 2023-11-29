@@ -12,7 +12,59 @@ import dayjs from "dayjs";
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [listProduct, setListProduct] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(listProduct);
   const sizeImgCarouselTop = { height: "100%", with: "100%" };
+  const [producerFilters, setProducerFilters] = useState(
+    setting.LIST_FILTER_PRODUCER
+  );
+  const [priceFilters, setPriceFilters] = useState(setting.LIST_FILTER_PRICE);
+  const [payload, setPayload] = useState({ producer: [], price: [] });
+
+  const handleProducerFilterChange = key => {
+    let listKeySearch = payload.producer;
+    const updatedFilters = producerFilters.map(filter => {
+      if (filter.key === key) {
+        const updatedFilter = { ...filter, isChecked: !filter.isChecked };
+        if (updatedFilter.isChecked === true) {
+          listKeySearch.push(filter.key);
+        } else if (updatedFilter.isChecked === false) {
+          const indexToRemove = listKeySearch.indexOf(filter.key);
+          if (indexToRemove !== -1) {
+            listKeySearch.splice(indexToRemove, 1);
+          }
+        }
+        return updatedFilter;
+      } else {
+        return filter;
+      }
+    });
+    setPayload({ ...payload, producer: listKeySearch });
+    setProducerFilters(updatedFilters);
+    fetchData(payload);
+  };
+
+  const handlePriceFilterChange = key => {
+    let listKeySearch = payload.price;
+    const updatedFilters = priceFilters.map(filter => {
+      if (filter.key === key) {
+        const updatedFilter = { ...filter, isChecked: !filter.isChecked };
+        if (updatedFilter.isChecked === true) {
+          listKeySearch.push(filter.key);
+        } else if (updatedFilter.isChecked === false) {
+          const indexToRemove = listKeySearch.indexOf(filter.key);
+          if (indexToRemove !== -1) {
+            listKeySearch.splice(indexToRemove, 1);
+          }
+        }
+        return updatedFilter;
+      } else {
+        return filter;
+      }
+    });
+    setPayload({ ...payload, price: listKeySearch });
+    fetchData(payload);
+    setPriceFilters(updatedFilters);
+  };
 
   function formatCurrency(amount) {
     const formatter = new Intl.NumberFormat("vi-VN", {
@@ -22,43 +74,52 @@ export default function Home() {
     return formatter.format(amount);
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await GET_ALL_PRODUCT()
-          .then(response => response.data)
-          .catch(error => {
-            console.error("Error fetching all products:", error);
-            throw error;
-          });
+  function reSetData() {
+    fetchData([]);
+    setProducerFilters(setting.LIST_FILTER_PRODUCER);
+    setPriceFilters(setting.LIST_FILTER_PRICE);
+  }
 
-        const formattedProducts = response.data.map(e => {
-          const tuNgayFormatted = e.tuNgay
-            ? dayjs(e.tuNgay).format("DD/MM/YYYY hh:mm:ss")
-            : "";
-          const denNgayFormatted = e.denNgay
-            ? dayjs(e.denNgay).format("DD/MM/YYYY hh:mm:ss")
-            : "";
-          const donGia = formatCurrency(e.donGia);
-          const code = new Date(e.denNgay) <= new Date(e.tuNgay) ? 0 : e.code;
-          const giaKhuyenMai = formatCurrency((e.donGia * code) / 100);
-          return {
-            ...e,
-            ngayTao: e.ngayTao ? dayjs(e.ngayTao).format("DD/MM/YYYY") : "",
-            tuNgay: tuNgayFormatted,
-            denNgay: denNgayFormatted,
-            donGia: donGia,
-            giaKhuyenMai: giaKhuyenMai,
-          };
+  const fetchData = async listKeySearch => {
+    try {
+      const response = await GET_ALL_PRODUCT(listKeySearch)
+        .then(response => response.data)
+        .catch(error => {
+          console.error("Error fetching all products:", error);
+          throw error;
         });
-        setListProduct(formattedProducts);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+
+      const formattedProducts = response.data.map(e => {
+        const tuNgayFormatted = e.tuNgay
+          ? dayjs(e.tuNgay).format("DD/MM/YYYY hh:mm:ss")
+          : "";
+        const denNgayFormatted = e.denNgay
+          ? dayjs(e.denNgay).format("DD/MM/YYYY hh:mm:ss")
+          : "";
+        const donGia = formatCurrency(e.donGia);
+        const code = new Date(e.denNgay) <= new Date(e.tuNgay) ? 0 : e.code;
+        const giaKhuyenMai = formatCurrency((e.donGia * code) / 100);
+        return {
+          ...e,
+          ngayTao: e.ngayTao ? dayjs(e.ngayTao).format("DD/MM/YYYY") : "",
+          tuNgay: tuNgayFormatted,
+          denNgay: denNgayFormatted,
+          giaGoc: e.donGia,
+          donGia: donGia,
+          giaKhuyenMai: giaKhuyenMai,
+        };
+      });
+      setFilteredProducts(formattedProducts);
+      setListProduct(formattedProducts);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(payload);
+  }, [payload]);
 
   return (
     <div className="container-fluid m-0 p-0 wrap-home bg-lazy">
@@ -88,36 +149,53 @@ export default function Home() {
             </div>
             <div className="wrap-container-product row col-md-12 mt-20">
               <div className="col-md-2">
-                <h5 className="fw-bolder mb-10">Hãng sản xuất</h5>
-                {setting.LIST_FILTER_PRODUCER.map(item => (
+                <h5 className="fw-bolder mb-10">
+                  Hãng sản xuất
+                  <FontAwesomeIcon
+                    onClick={reSetData}
+                    icon="fa-solid fa-arrow-rotate-left"
+                    style={{ marginLeft: "10px" }}
+                  />
+                </h5>
+                {producerFilters.map(filter => (
                   <label
                     className="item-filter-producer d-block"
-                    key={item.key}
+                    key={filter.key}
                   >
-                    <input type="checkbox" className="mr-10" />
-                    {item.name}
+                    <input
+                      type="checkbox"
+                      className="mr-10"
+                      checked={filter.isChecked}
+                      onChange={() => handleProducerFilterChange(filter.key)}
+                    />
+                    {filter.name}
                   </label>
                 ))}
                 <h5 className="fw-bolder mb-10 mt-20">Giá bán</h5>
-                {setting.LIST_FILTER_PRICE.map(item => (
+                {priceFilters.map(filter => (
                   <label
                     className="item-filter-producer d-block"
-                    key={item.key}
+                    key={filter.key}
                   >
-                    <input type="checkbox" className="mr-10" />
-                    {item.name}
+                    <input
+                      type="checkbox"
+                      className="mr-10"
+                      checked={filter.isChecked}
+                      onChange={() => handlePriceFilterChange(filter.key)}
+                    />
+                    {filter.name}
                   </label>
                 ))}
               </div>
-              <div className="col-md-10 list-product container-fluid">
-                {listProduct.map(item => (
+              <div className="col-md-10 list-product container-fluid d-flex flex-wrap">
+                {filteredProducts.map(item => (
                   <div className="item-product" key={item.id}>
-                    <div className="w-100 d-flex justify-content-center">
+                    <div className="d-flex justify-content-center">
                       <p className="wrap-img">
                         <img src={item.anh} />
                       </p>
                     </div>
-                    <div className="pl-30 pr-30">
+                    <div className="pl-20 pr-20">
                       <div>
                         <h3 className="fw-bold mb-10">{item.ten}</h3>
                         <p className="d-flex justify-content-between">
