@@ -87,8 +87,28 @@ export default function Supplier() {
   ];
 
   const updateSupplier = async () => {
-    setLoading(true);
     setOpen(false);
+    if (isEmptyNullUndefined(formData.ten)) {
+      error("Bạn chưa nhập tên nhà cung cấp!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.diaChi)) {
+      error("Bạn chưa nhập địa chỉ nhà cung cấp!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.email)) {
+      error("Bạn chưa nhập email nhà cung cấp!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.sdt)) {
+      error("Bạn chưa nhập số điện thoại nhà cung cấp!");
+      return;
+    }
+
+    setLoading(true);
     await UPDATE_SUPPlIER_BY_ID(formData).then(res => {
       setLoading(false);
       if (res.status === setting.STATUS_CODE.OK) {
@@ -101,9 +121,28 @@ export default function Supplier() {
   };
 
   const createSupplier = async () => {
-    setLoading(true);
     setOpen(false);
-    console.log(formData);
+    if (isEmptyNullUndefined(formData.ten)) {
+      error("Bạn chưa nhập tên nhà cung cấp!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.diaChi)) {
+      error("Bạn chưa nhập địa chỉ nhà cung cấp!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.email)) {
+      error("Bạn chưa nhập email nhà cung cấp!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.sdt)) {
+      error("Bạn chưa nhập số điện thoại nhà cung cấp!");
+      return;
+    }
+
+    setLoading(true);
     await CREATE_SUPPlIER(formData).then(res => {
       setLoading(false);
       if (res.status === setting.STATUS_CODE.OK) {
@@ -119,7 +158,15 @@ export default function Supplier() {
     switch (action) {
       case setting.ACTION.ADD:
         if (status === setting.ACTION.OPEN) {
-          setFormData({});
+          setFormData({
+            id: "",
+            ten: "",
+            diaChi: "",
+            email: "",
+            sdt: "",
+            ngayTao: "",
+            ngaySua: "",
+          });
         }
         break;
       case setting.ACTION.UPDATE:

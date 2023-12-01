@@ -8,6 +8,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import { error, success, confirmDialog } from "../../common/sweetalert2.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import isEmptyNullUndefined from "../../common/core.js";
 
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -106,8 +107,24 @@ export default function Comment() {
   ];
 
   const updateComment = async () => {
-    setLoading(true);
     setOpen(false);
+
+    if (isEmptyNullUndefined(formData.tenSanPham)) {
+      error("Bạn chưa nhập tên sản phẩm bình luận!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.noiDung)) {
+      error("Bạn chưa nhập nội dung bình luận!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.trangThai)) {
+      error("Bạn chưa chọn trạng thái bình luận!");
+      return;
+    }
+
+    setLoading(true);
     await UPDATE_COMMENT_BY_ID(formData).then(res => {
       setLoading(false);
       if (res.status === setting.STATUS_CODE.OK) {
@@ -120,8 +137,24 @@ export default function Comment() {
   };
 
   const createComment = async () => {
-    setLoading(true);
     setOpen(false);
+
+    if (isEmptyNullUndefined(formData.tenSanPham)) {
+      error("Bạn chưa nhập tên sản phẩm bình luận!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.noiDung)) {
+      error("Bạn chưa nhập nội dung bình luận!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.trangThai)) {
+      error("Bạn chưa chọn trạng thái bình luận!");
+      return;
+    }
+
+    setLoading(true);
     await CREATE_COMMENT(formData).then(res => {
       setLoading(false);
       if (res.status === setting.STATUS_CODE.OK) {
