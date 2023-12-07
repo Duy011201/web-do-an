@@ -18,17 +18,20 @@ export const GET_ALL_USER = () => {
 };
 
 // Product
-export const GET_ALL_PRODUCT = () => {
-  return axios.get(setting.BASE_URL + setting.URL_API.GET_ALL_PRODUCT);
+export const GET_ALL_PRODUCT = payload => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.GET_ALL_PRODUCT,
+    payload
+  );
 };
 
 // Comment
 export const GET_ALL_COMMENT = () => {
-  return axios.get(setting.BASE_URL + setting.URL_API.GET_ALL_COMMENT);
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_COMMENT);
 };
 
 export const GET_COMMENT_BY_ID = id => {
-  return axios.get(
+  return axios.post(
     `${setting.BASE_URL}${setting.URL_API.GET_COMMENT_BY_ID}?id=${id}`
   );
 };
@@ -50,5 +53,36 @@ export const CREATE_COMMENT = newData => {
 export const DELETE_COMMENT_BY_ID = id => {
   return axios.post(
     `${setting.BASE_URL}${setting.URL_API.DELETE_COMMENT_BY_ID}?id=${id}`
+  );
+};
+
+// Supplier
+export const GET_ALL_SUPPlIER = () => {
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_SUPPlIER);
+};
+
+export const GET_SUPPlIER_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.GET_SUPPlIER_BY_ID}?id=${id}`
+  );
+};
+
+export const UPDATE_SUPPlIER_BY_ID = updateData => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.UPDATE_SUPPlIER_BY_ID,
+    updateData
+  );
+};
+
+export const CREATE_SUPPlIER = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_SUPPlIER}`,
+    newData
+  );
+};
+
+export const DELETE_SUPPlIER_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.DELETE_SUPPlIER_BY_ID}?id=${id}`
   );
 };
