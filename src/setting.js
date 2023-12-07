@@ -39,6 +39,10 @@ const LIST_FILTER_PRICE = [
 const BASE_URL = "http://localhost:8080/api";
 const URL_API = {
   LOGIN: "/login",
+  GET_ALL_USER: "/login/all",
+  GET_USER_BY_ID: "/login/user",
+  UPDATE_USER_BY_ID: "/register/update",
+  CREATE_USER:"/login/create",
 
   GET_COMMENT_BY_ID: "/comment",
   GET_ALL_COMMENT: "/comment/all",

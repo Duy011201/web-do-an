@@ -6,6 +6,17 @@ export const LOGIN = user => {
   return axios.post(setting.BASE_URL + setting.URL_API.LOGIN, user);
 };
 
+export const CREATE_USER = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_USER}`,
+    newData
+  );
+};
+
+export const GET_ALL_USER = () => {
+  return axios.get(setting.BASE_URL + setting.URL_API.GET_ALL_USER);
+};
+
 // Product
 export const GET_ALL_PRODUCT = () => {
   return axios.get(setting.BASE_URL + setting.URL_API.GET_ALL_PRODUCT);
