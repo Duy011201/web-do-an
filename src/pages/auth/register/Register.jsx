@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { error, success } from "/src/common/sweetalert2.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "../../../components/loading/Loading";
+import { CREATE_USER, GET_ALL_USER, LOGIN } from "../../service";
+import setting from "../../../setting";
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
@@ -13,33 +15,33 @@ export default function Register() {
     username: "",
   });
 
-  const handleSubmit = e => {
+
+  const handleSubmit = async (e, status) => {
     e.preventDefault();
-    if (
-      formData.email === "nguyenduy011201@gmail.com" &&
-      formData.password === "123" &&
-      formData.username
-    ) {
+    const res = await CREATE_USER(formData);
+    if (res.status === 200) {
       success("Register Success");
-      window.location = "/login";
+      window.location = "/login"
       return;
     } else {
       error("Register Failed");
-      return;
+      return;     
     }
   };
+
+   
 
   const handleInputChange = e => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 500);
+  // }, []);
 
   return (
     <div
@@ -57,7 +59,7 @@ export default function Register() {
               <input
                 type="text"
                 name="username"
-                value={formData.password}
+                value={formData.username}
                 onChange={handleInputChange}
                 className="form-control"
                 id="inputUsername"

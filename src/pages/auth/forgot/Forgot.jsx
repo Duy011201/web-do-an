@@ -94,7 +94,7 @@ export default function Forgot() {
               </div>
             ) : null}
             <button type="submit" className="btn btn-primary mt-10 w-100">
-              {verifyCode.isCode ? "Forgot" : "Verify Code"}
+              {verifyCode.isCode ? "Forgot" : "Verify email"}
             </button>
             <p className="mt-10 text-center">
               Already have an account?{" "}
