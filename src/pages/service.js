@@ -14,6 +14,32 @@ export const GET_ALL_PRODUCT = payload => {
   );
 };
 
+export const GET_PRODUCT_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.GET_PRODUCT_BY_ID}?id=${id}`
+  );
+};
+
+export const UPDATE_PRODUCT_BY_ID = updateData => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.UPDATE_PRODUCT_BY_ID,
+    updateData
+  );
+};
+
+export const CREATE_PRODUCT = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_PRODUCT}`,
+    newData
+  );
+};
+
+export const DELETE_PRODUCT_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.DELETE_PRODUCT_BY_ID}?id=${id}`
+  );
+};
+
 // Comment
 export const GET_ALL_COMMENT = () => {
   return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_COMMENT);
@@ -74,4 +100,9 @@ export const DELETE_SUPPlIER_BY_ID = id => {
   return axios.post(
     `${setting.BASE_URL}${setting.URL_API.DELETE_SUPPlIER_BY_ID}?id=${id}`
   );
+};
+
+// Promtions
+export const GET_ALL_PROMOTIONS = () => {
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_PROMOTIONS);
 };

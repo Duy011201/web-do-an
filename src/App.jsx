@@ -5,7 +5,8 @@ import Forgot from "./pages/auth/forgot/Forgot";
 import Home from "./pages/home/Home";
 import NoPage from "./pages/nopage/NoPage";
 import Comment from "./pages/comment/Comment";
-import Supplier from "./pages/supplier/supplier";
+import Supplier from "./pages/supplier/Supplier";
+import Product from "./pages/product/Product";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<Forgot />} />
+        <Route path="/product" element={<Product />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

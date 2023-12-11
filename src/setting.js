@@ -50,6 +50,12 @@ const URL_API = {
   UPDATE_SUPPlIER_BY_ID: "/supplier/update",
 
   GET_ALL_PRODUCT: "/product/all",
+  GET_PRODUCT_BY_ID: "/product",
+  CREATE_PRODUCT: "/product/create",
+  DELETE_PRODUCT_BY_ID: "/product/delete",
+  UPDATE_PRODUCT_BY_ID: "/product/update",
+
+  GET_ALL_PROMOTIONS: "/promotions/all"
 };
 
 const COMMENT_STATUS = {
