@@ -45,6 +45,57 @@ export const DELETE_COMMENT_BY_ID = id => {
   );
 };
 
+//User
+export const GET_ALL_USER = () => {
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_USER);
+}
+
+export const CREATE_USER = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_USER}`,
+    newData
+  );
+};
+
+export const UPDATE_USER_BY_ID = updateData => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.UPDATE_USER_BY_ID,
+    updateData
+  );
+};
+
+export const DELETE_USER_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.DELETE_USER_BY_ID}?id=${id}`
+  );
+};
+
+
+// Roles
+export const GET_ALL_ROLE = () => {
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_ROLE);
+};
+
+export const CREATE_ROLE = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_ROLE}`,
+    newData
+  );
+};
+
+export const UPDATE_ROLE_BY_ID = updateData => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.UPDATE_ROLE_BY_ID,
+    updateData
+  );
+};
+
+export const DELETE_ROLE_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.DELETE_ROLE_BY_ID}?id=${id}`
+  );
+};
+
 // Supplier
 export const GET_ALL_SUPPlIER = () => {
   return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_SUPPlIER);

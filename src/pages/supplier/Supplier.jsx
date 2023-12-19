@@ -43,7 +43,7 @@ export default function Supplier() {
       [name]: value,
     }));
   };
-
+  
   const columns = [
     { field: "id", headerName: "id", width: 70 },
     { field: "ten", headerName: "Tên", width: 150 },
@@ -204,24 +204,27 @@ export default function Supplier() {
       await GET_ALL_SUPPlIER().then(res => {
         setLoading(false);
         if (res.status === setting.STATUS_CODE.OK) {
+          console.log(res);
           listSupplier = res.data.data.map(e => {
             return {
               ...e,
               ngayTao: e.ngayTao ? dayjs(e.ngayTao).format("DD/MM/YYYY") : "",
               ngaySua: e.ngaySua ? dayjs(e.ngaySua).format("DD/MM/YYYY") : "",
             };
+            
           });
         } else {
           error(res.data.msg);
         }
       });
       setListSupplier(listSupplier);
+      
     } catch (error) {
       console.error("Error fetching data:", error);
       setLoading(false);
     }
   };
-
+  //console.log(listSupplier);
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
