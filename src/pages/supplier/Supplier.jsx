@@ -8,6 +8,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import { error, success, confirmDialog } from "../../common/sweetalert2.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { isEmptyNullUndefined } from "../../common/core.js";
 
 import Header from "../../components/header/Header.jsx";
 import Footer from "../../components/footer/Footer.jsx";
@@ -346,10 +347,10 @@ export default function Supplier() {
               </Button>
               {action === setting.ACTION.ADD ? (
                 <>
-                  <Button onClick={() => createSupplier()}>Thêm mới</Button>
+                  <Button onClick={() => createRole()}>Thêm mới</Button>
                 </>
               ) : (
-                <Button onClick={() => updateSupplier()}>Lưu</Button>
+                <Button onClick={() => updateRole()}>Lưu</Button>
               )}
             </DialogActions>
           </Dialog>

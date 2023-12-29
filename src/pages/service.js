@@ -6,11 +6,48 @@ export const LOGIN = user => {
   return axios.post(setting.BASE_URL + setting.URL_API.LOGIN, user);
 };
 
+// export const CREATE_USER = newData => {
+//   return axios.post(
+//     `${setting.BASE_URL}${setting.URL_API.CREATE_USER}`,
+//     newData
+//   );
+// };
+
+// export const GET_ALL_USER = () => {
+//   return axios.get(setting.BASE_URL + setting.URL_API.GET_ALL_USER);
+// };
+
 // Product
 export const GET_ALL_PRODUCT = payload => {
   return axios.post(
     setting.BASE_URL + setting.URL_API.GET_ALL_PRODUCT,
     payload
+  );
+};
+
+export const GET_PRODUCT_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.GET_PRODUCT_BY_ID}?id=${id}`
+  );
+};
+
+export const UPDATE_PRODUCT_BY_ID = updateData => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.UPDATE_PRODUCT_BY_ID,
+    updateData
+  );
+};
+
+export const CREATE_PRODUCT = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_PRODUCT}`,
+    newData
+  );
+};
+
+export const DELETE_PRODUCT_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.DELETE_PRODUCT_BY_ID}?id=${id}`
   );
 };
 
@@ -125,4 +162,9 @@ export const DELETE_SUPPlIER_BY_ID = id => {
   return axios.post(
     `${setting.BASE_URL}${setting.URL_API.DELETE_SUPPlIER_BY_ID}?id=${id}`
   );
+};
+
+// Promtions
+export const GET_ALL_PROMOTIONS = () => {
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_PROMOTIONS);
 };

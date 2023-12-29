@@ -8,7 +8,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import { error, success, confirmDialog } from "../../common/sweetalert2.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import isEmptyNullUndefined from "../../common/core.js";
+import { isEmptyNullUndefined } from "../../common/core.js";
 
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -278,7 +278,7 @@ export default function Comment() {
                   value={formData.tenSanPham}
                   placeholder="Nhập tên sản phẩm"
                   onChange={handleInputChange}
-                  disabled
+                  // disabled
                   required
                 />
               </div>

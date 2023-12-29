@@ -13,7 +13,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import { error, success, confirmDialog } from "../../common/sweetalert2.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import isEmptyNullUndefined from "../../common/core.js";
+import { isEmptyNullUndefined } from "../../common/core.js";
 
 
 import "./style.scss";
@@ -157,6 +157,22 @@ export default function User() {
     };
     const createUser = async () => {
       setOpen(false);
+      if (isEmptyNullUndefined(formData.ten)) {
+        error("Bạn chưa nhập tên");
+        return;
+      }
+      if (isEmptyNullUndefined(formData.email)) {
+        error("Bạn chưa nhập email");
+        return;
+      }
+      if (isEmptyNullUndefined(formData.sdt)) {
+        error("Bạn chưa nhập số điện thoại");
+        return;
+      }
+      if (isEmptyNullUndefined(formData.roleID)) {
+        error("Bạn chưa chọn quyền");
+        return;
+      }
       setLoading(true);
       await CREATE_USER(formData).then(res => {
         setLoading(false);
@@ -171,6 +187,22 @@ export default function User() {
 
     const updateUser = async () => {
       setOpen(false);
+      if (isEmptyNullUndefined(formData.ten)) {
+        error("Bạn chưa nhập tên");
+        return;
+      }
+      if (isEmptyNullUndefined(formData.email)) {
+        error("Bạn chưa nhập email");
+        return;
+      }
+      if (isEmptyNullUndefined(formData.sdt)) {
+        error("Bạn chưa nhập số điện thoại");
+        return;
+      }
+      if (isEmptyNullUndefined(formData.roleID)) {
+        error("Bạn chưa chọn quyền");
+        return;
+      }
       setLoading(true);
       await UPDATE_USER_BY_ID(formData).then(res => {
         setLoading(false);

@@ -21,6 +21,7 @@ export default function Login() {
         email: formData.email,
         matKhau: formData.password
       }
+
       response = await LOGIN(user)
         .then(response => response.data)
         .catch(error => {
@@ -31,8 +32,8 @@ export default function Login() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-    
-    if (response.status === 200) {
+
+    if (response.data.length > 0) {
       success("Login Success");
       window.location = "http://localhost:5173/";
       return;
