@@ -347,10 +347,10 @@ export default function Supplier() {
               </Button>
               {action === setting.ACTION.ADD ? (
                 <>
-                  <Button onClick={() => createRole()}>Thêm mới</Button>
+                  <Button onClick={() => createSupplier()}>Thêm mới</Button>
                 </>
               ) : (
-                <Button onClick={() => updateRole()}>Lưu</Button>
+                <Button onClick={() => updateSupplier()}>Lưu</Button>
               )}
             </DialogActions>
           </Dialog>
