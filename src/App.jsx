@@ -19,6 +19,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<Forgot />} />
         <Route path="/product" element={<Product />} />
+        <Route path="/product-detail" element={<ProductDetails />} />
+        <Route path="/product-detail/:id" element={<ProductDetails />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

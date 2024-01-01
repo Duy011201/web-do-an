@@ -36,12 +36,14 @@ export default function Product() {
   const [formData, setFormData] = useState({
     id: "",
     promotionID: "",
+    code: "",
     supplierID: "",
     ten: "",
     moTa: "",
     heDieuHanh: "",
     anh: "",
     donGia: "",
+    soLuong:"",
     baoHanh: "",
     mauSac: "",
     ngayTao: "",
@@ -65,6 +67,7 @@ export default function Product() {
     { field: "moTa", headerName: "Mô tả", width: 130 },
     { field: "heDieuHanh", headerName: "Hệ điều hành", width: 50 },
     { field: "donGia", headerName: "Đơn giá", width: 50 },
+    { field: "soLuong", headerName: "Số lượng", width: 50 },
     { field: "baoHanh", headerName: "Bảo hành", width: 50 },
     { field: "mauSac", headerName: "Màu sắc", width: 50 },
     { field: "ngayTao", headerName: "Ngày tạo", width: 120 },
@@ -121,12 +124,14 @@ export default function Product() {
   const updateProduct = async () => {
     setOpen(false);
 
-    if (isEmptyNullUndefined(formData.code)) {
+    console.log(formData);
+
+    if (isEmptyNullUndefined(formData.promotionID)) {
       error("Bạn chưa chọn mã giảm giá!");
       return;
     }
 
-    if (isEmptyNullUndefined(formData.tenNhaCungCap)) {
+    if (isEmptyNullUndefined(formData.supplierID)) {
       error("Bạn chưa chọn tên nhà cung cấp!");
       return;
     }
@@ -151,71 +156,8 @@ export default function Product() {
       return;
     }
 
-    if (isEmptyNullUndefined(formData.baoHanh)) {
-      error("Bạn chưa nhập bảo hành cảu sản phẩm!");
-      return;
-    }
-
-    if (isEmptyNullUndefined(formData.mauSac)) {
-      error("Bạn chưa nhập màu sắc của sản phẩm!");
-      return;
-    }
-
-    let payLoad={
-      promotionID: formData.promotionID,
-      supplierID: formData.supplierID,
-      ten: formData.ten,
-      moTa: formData.moTa,
-      heDieuHanh: formData.heDieuHanh,
-      anh: formData.anh,
-      donGia: formData.donGia,
-      baoHanh: formData.baoHanh,
-      mauSac: formData.mauSac,
-      id: formData.id,
-      };
-
-    setLoading(true);
-    await UPDATE_PRODUCT_BY_ID(payLoad).then(res => {
-      setLoading(false);
-      if (res.status === setting.STATUS_CODE.OK) {
-        success(res.data.msg);
-        getALLProduct();
-      } else {
-        error(res.data.msg);
-      }
-    });
-  };
-
-  const createProduct = async () => {
-    setOpen(false);
-
-    if (isEmptyNullUndefined(formData.code)) {
-      error("Bạn chưa chọn mã giảm giá!");
-      return;
-    }
-
-    if (isEmptyNullUndefined(formData.tenNhaCungCap)) {
-      error("Bạn chưa chọn tên nhà cung cấp!");
-      return;
-    }
-
-    if (isEmptyNullUndefined(formData.ten)) {
-      error("Bạn chưa nhập tên sản phẩm!");
-      return;
-    }
-
-    if (isEmptyNullUndefined(formData.moTa)) {
-      error("Bạn chưa nhập mô tả sản phẩm!");
-      return;
-    }
-
-    if (isEmptyNullUndefined(formData.heDieuHanh)) {
-      error("Bạn chưa nhập hệ điều hành!");
-      return;
-    }
-    
-    if (isEmptyNullUndefined(formData.donGia)) {
-      error("Bạn chưa nhập đơn giá của sản phẩm!");
+    if (isEmptyNullUndefined(formData.soLuong)) {
+      error("Bạn chưa nhập số lượng của sản phẩm!");
       return;
     }
 
@@ -237,6 +179,80 @@ export default function Product() {
       heDieuHanh: formData.heDieuHanh,
       anh: formData.anh,
       donGia: formData.donGia,
+      soLuong: formData.soLuong,
+      baoHanh: formData.baoHanh,
+      mauSac: formData.mauSac,
+      id: formData.id,
+      };
+
+    setLoading(true);
+    await UPDATE_PRODUCT_BY_ID(payLoad).then(res => {
+      setLoading(false);
+      if (res.status === setting.STATUS_CODE.OK) {
+        success(res.data.msg);
+        getALLProduct();
+      } else {
+        error(res.data.msg);
+      }
+    });
+  };
+
+  const createProduct = async () => {
+    setOpen(false);
+    if (isEmptyNullUndefined(formData.promotionID)) {
+      error("Bạn chưa chọn mã giảm giá!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.supplierID)) {
+      error("Bạn chưa chọn tên nhà cung cấp!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.ten)) {
+      error("Bạn chưa nhập tên sản phẩm!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.moTa)) {
+      error("Bạn chưa nhập mô tả sản phẩm!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.heDieuHanh)) {
+      error("Bạn chưa nhập hệ điều hành!");
+      return;
+    }
+    
+    if (isEmptyNullUndefined(formData.donGia)) {
+      error("Bạn chưa nhập đơn giá của sản phẩm!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.soLuong)) {
+      error("Bạn chưa nhập số lượng của sản phẩm!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.baoHanh)) {
+      error("Bạn chưa nhập bảo hành của sản phẩm!");
+      return;
+    }
+
+    if (isEmptyNullUndefined(formData.mauSac)) {
+      error("Bạn chưa nhập màu sắc của sản phẩm!");
+      return;
+    }
+
+    let payLoad={
+      promotionID: formData.promotionID,
+      supplierID: formData.supplierID,
+      ten: formData.ten,
+      moTa: formData.moTa,
+      heDieuHanh: formData.heDieuHanh,
+      anh: formData.anh,
+      donGia: formData.donGia,
+      soLuong: formData.soLuong,
       baoHanh: formData.baoHanh,
       mauSac: formData.mauSac,
       };
@@ -256,6 +272,7 @@ export default function Product() {
   const handleDialog = async (status, action, data) => {
     switch (action) {
       case setting.ACTION.ADD:
+        setFormData({});
         break;
       case setting.ACTION.UPDATE:
         if (status === setting.ACTION.OPEN) {
@@ -361,6 +378,12 @@ export default function Product() {
   }, []);
 
 
+    function handleUploadImage(e) {
+      formData.anh = './src/assets/images/' + e.target.files[0].name;
+      setFormData({ ...formData});
+        console.log(formData);
+    }
+  
 
   return (
     <div className="container-fluid m-0 p-0 wrap-home bg-lazy">
@@ -497,6 +520,18 @@ export default function Product() {
                   />
                 </div>
                 <div className="form-group mt-10 col-md-6">
+                  <label htmlFor="soLuong">Số lượng</label>
+                  <input
+                    type="text"
+                    name="soLuong"
+                    value={formData.soLuong}
+                    onChange={handleInputChange}
+                    className="form-control"
+                    placeholder="Nhập số lượng"
+                    required
+                  />
+                </div>
+                <div className="form-group mt-10 col-md-6">
                   <label htmlFor="baoHanh">Bảo hành</label>
                   <input
                     type="text"
@@ -519,9 +554,11 @@ export default function Product() {
                     required
                   />
                   </div>
-                  <div className="form-group mt-10 col-md-6">
-                  <label for="ảnh">chọn ảnh sản phẩm</label>
-                  <input type="file" id="anh" name="anh" accept="image/png, image/jpeg" />
+                  
+                  <div className="GetImg form-group mt-10 col-md-6">
+                  <h2>Add Image:</h2>
+                  <input type="file" id="anh" name="anh" accept="image/png, image/jpeg" onChange={handleUploadImage} />
+                  <img src={formData.anh} />
                   </div>
               </div>
             </DialogContent>

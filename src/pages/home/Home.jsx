@@ -8,6 +8,7 @@ import "./style.scss";
 import setting from "../../setting.js";
 import { GET_ALL_PRODUCT } from "../service.js";
 import dayjs from "dayjs";
+import { Link, Outlet } from "react-router-dom";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -189,7 +190,7 @@ export default function Home() {
               </div>
               <div className="col-md-10 list-product container-fluid d-flex flex-wrap">
                 {filteredProducts.map(item => (
-                  <div className="item-product" key={item.id}>
+                  <Link to={`/product-detail?id=${item.id}`}><div className="item-product" key={item.id}>
                     <div className="d-flex justify-content-center">
                       <p className="wrap-img">
                         <img src={item.anh} />
@@ -217,6 +218,8 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
+                  </Link>
+
                 ))}
               </div>
             </div>
