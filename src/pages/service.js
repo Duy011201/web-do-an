@@ -10,6 +10,27 @@ export const CREATE_USER = newData => {
   return axios.post(
     `${setting.BASE_URL}${setting.URL_API.CREATE_USER}`,
     newData
+    // {
+    //   hoten: newData.username,
+    //   email: newData.email,
+    //   matKhau: newData.password,
+    // }
+  );
+};
+export const UPDATE_USER_BY_ID = updateData => {
+  return axios.post(
+    `${setting.BASE_URL + setting.URL_API.UPDATE_USER_BY_ID}`,
+    {
+      email: updateData.email,
+      matKhau: updateData.password
+    }
+  );
+};
+
+export const CHECK_EMAIL = check => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.CHECK_EMAIL,
+    check
   );
 };
 

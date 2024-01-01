@@ -48,13 +48,6 @@ export default function Login() {
     setFormData({ ...formData, [name]: value });
   };
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 500);
-  // }, []);
-
   return (
     <div
       className="container-fluid d-flex justify-content-center align-items-center vh-100 wrap-login bg-lazy"

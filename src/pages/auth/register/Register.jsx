@@ -14,34 +14,22 @@ export default function Register() {
     password: "",
     username: "",
   });
-
+  const [error, setError] = useState(""); // Thêm state error để lưu trữ thông báo lỗi
 
   const handleSubmit = async (e, status) => {
     e.preventDefault();
-    const res = await CREATE_USER(formData);
-    if (res.status === 200) {
-      success("Register Success");
-      window.location = "/login"
-      return;
-    } else {
-      error("Register Failed");
-      return;     
-    }
+      await CREATE_USER(formData).then(res => {
+        if (res.status === 200) {
+        success("Register Success");
+        window.location = "/login";
+      }
+  })
   };
-
-   
 
   const handleInputChange = e => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 500);
-  // }, []);
 
   return (
     <div
