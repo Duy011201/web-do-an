@@ -105,6 +105,7 @@ export default function Forgot() {
                   icon="fas fa-lock"
                 />
               </div>
+<<<<<<< HEAD
             )}
             {verifyCode.isCode ? (
               <button
@@ -121,6 +122,12 @@ export default function Forgot() {
                 Forgot
               </button>
             )}
+=======
+            ) : null}
+            <button type="submit" className="btn btn-primary mt-10 w-100">
+              {verifyCode.isCode ? "Forgot" : "Verify email"}
+            </button>
+>>>>>>> ea7f84ae9535efdb0caccfd719a034e7b8a93ae2
             <p className="mt-10 text-center">
               Already have an account?{" "}
               <Link className="text-decoration-underline" to="/login">

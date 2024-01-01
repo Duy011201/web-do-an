@@ -278,7 +278,7 @@ export default function Comment() {
                   value={formData.tenSanPham}
                   placeholder="Nhập tên sản phẩm"
                   onChange={handleInputChange}
-                  disabled
+                  // disabled
                   required
                 />
               </div>

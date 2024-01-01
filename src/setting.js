@@ -43,11 +43,26 @@ const URL_API = {
   CREATE_USER:"/login/create",
   CHECK_EMAIL:"/forgot/checkemail",
 
+  // Comments
   GET_COMMENT_BY_ID: "/comment",
   GET_ALL_COMMENT: "/comment/all",
   DELETE_COMMENT_BY_ID: "/comment/delete",
   UPDATE_COMMENT_BY_ID: "/comment/update",
 
+  //User
+  GET_ALL_USER: "/user/all",
+  CREATE_USER: "/user/create",
+  DELETE_USER_BY_ID: "/user/delete",
+  UPDATE_USER_BY_ID: "/user/update",
+
+  //Roles
+  GET_ROLE_BY_ID: "/role",
+  GET_ALL_ROLE: "/role/all",
+  CREATE_ROLE: "/role/create",
+  DELETE_ROLE_BY_ID: "/role/delete",
+  UPDATE_ROLE_BY_ID: "/role/update",
+
+  //Supplier
   GET_SUPPlIER_BY_ID: "/supplier",
   GET_ALL_SUPPlIER: "/supplier/all",
   CREATE_SUPPlIER: "/supplier/create",
@@ -55,6 +70,12 @@ const URL_API = {
   UPDATE_SUPPlIER_BY_ID: "/supplier/update",
 
   GET_ALL_PRODUCT: "/product/all",
+  GET_PRODUCT_BY_ID: "/product",
+  CREATE_PRODUCT: "/product/create",
+  DELETE_PRODUCT_BY_ID: "/product/delete",
+  UPDATE_PRODUCT_BY_ID: "/product/update",
+
+  GET_ALL_PROMOTIONS: "/promotions/all"
 };
 
 const COMMENT_STATUS = {
