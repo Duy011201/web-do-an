@@ -9,6 +9,7 @@ import Supplier from "./pages/supplier/Supplier";
 import USer from "./pages/user/User";
 import Role from "./pages/role/Role";
 import Product from "./pages/product/Product";
+import ProductDetails from "./pages/product-details/Product-details";
 
 function App() {
   return (
