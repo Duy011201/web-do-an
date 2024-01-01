@@ -39,7 +39,7 @@ const URL_API = {
   LOGIN: "/login",
   GET_ALL_USER: "/login/all",
   GET_USER_BY_ID: "/login/user",
-  UPDATE_USER_BY_ID: "/forgot/update",
+  UPDATE_AUTH_BY_ID: "/forgot/update",
   CREATE_USER:"/login/create",
   CHECK_EMAIL:"/forgot/checkemail",
 

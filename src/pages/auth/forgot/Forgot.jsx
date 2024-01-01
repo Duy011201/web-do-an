@@ -10,7 +10,7 @@ import {
   CREATE_USER,
   GET_ALL_USER,
   LOGIN,
-  UPDATE_USER_BY_ID,
+  UPDATE_AUTH_BY_ID,
 } from "../../service";
 import setting from "../../../setting";
 
@@ -46,7 +46,7 @@ export default function Forgot() {
 
   const handleChangePassword = async() => {
     console.log('fomrData',formData);
-    const res = await UPDATE_USER_BY_ID(formData);
+    const res = await UPDATE_AUTH_BY_ID(formData);
     if (res.status === 200) {
       setLoading(true);
       success("Update success");
@@ -105,7 +105,6 @@ export default function Forgot() {
                   icon="fas fa-lock"
                 />
               </div>
-<<<<<<< HEAD
             )}
             {verifyCode.isCode ? (
               <button
@@ -122,12 +121,6 @@ export default function Forgot() {
                 Forgot
               </button>
             )}
-=======
-            ) : null}
-            <button type="submit" className="btn btn-primary mt-10 w-100">
-              {verifyCode.isCode ? "Forgot" : "Verify email"}
-            </button>
->>>>>>> ea7f84ae9535efdb0caccfd719a034e7b8a93ae2
             <p className="mt-10 text-center">
               Already have an account?{" "}
               <Link className="text-decoration-underline" to="/login">

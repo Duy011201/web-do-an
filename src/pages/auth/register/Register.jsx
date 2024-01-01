@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { error, success } from "/src/common/sweetalert2.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "../../../components/loading/Loading";
-import { CREATE_USER, GET_ALL_USER, LOGIN } from "../../service";
+import { REGISTER} from "../../service";
 import setting from "../../../setting";
 
 export default function Register() {
@@ -18,7 +18,7 @@ export default function Register() {
 
   const handleSubmit = async (e, status) => {
     e.preventDefault();
-      await CREATE_USER(formData).then(res => {
+      await REGISTER(formData).then(res => {
         if (res.status === 200) {
         success("Register Success");
         window.location = "/login";
