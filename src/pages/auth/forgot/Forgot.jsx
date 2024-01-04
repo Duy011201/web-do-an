@@ -32,20 +32,20 @@ export default function Forgot() {
 
   const handleVerifyEmail = async () => {
     await CHECK_EMAIL(formData).then(res => {
-    if (res.data.data.length > 0) {
-      setVerifyCode(prevVerifyCode => ({
-        ...prevVerifyCode,
-        isCode: true,
-      }));
-    } else {
-      error("Không tồn tại email");
-      return
-    }
+      if (res.data.data.length > 0) {
+        setVerifyCode(prevVerifyCode => ({
+          ...prevVerifyCode,
+          isCode: true,
+        }));
+      } else {
+        error("Không tồn tại email");
+        return;
+      }
     });
   };
 
-  const handleChangePassword = async() => {
-    console.log('fomrData',formData);
+  const handleChangePassword = async () => {
+    console.log("fomrData", formData);
     const res = await UPDATE_AUTH_BY_ID(formData);
     if (res.status === 200) {
       setLoading(true);
@@ -121,6 +121,9 @@ export default function Forgot() {
                 Forgot
               </button>
             )}
+            <button type="submit" className="btn btn-primary mt-10 w-100">
+              {verifyCode.isCode ? "Forgot" : "Verify email"}
+            </button>
             <p className="mt-10 text-center">
               Already have an account?{" "}
               <Link className="text-decoration-underline" to="/login">
