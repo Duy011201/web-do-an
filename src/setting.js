@@ -42,6 +42,8 @@ const URL_API = {
   UPDATE_AUTH_BY_ID: "/forgot/update",
   CREATE_USER:"/login/create",
   CHECK_EMAIL:"/forgot/checkemail",
+  GET_PROFILE_BY_ID:"/profile",
+  UPDATE_PROFILE_BY_ID:"/profile/update",
 
   // Comments
   GET_COMMENT_BY_ID: "/comment",

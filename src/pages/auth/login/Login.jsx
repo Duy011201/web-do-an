@@ -36,6 +36,7 @@ export default function Login() {
     if (response.data.length > 0) {
       success("Login Success");
       window.location = "http://localhost:5173/";
+      localStorage.setItem("user", JSON.stringify({ id: response.data[0].id }));
       return;
     } else {
       error("Login Failed");

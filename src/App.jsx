@@ -10,6 +10,7 @@ import USer from "./pages/user/User";
 import Role from "./pages/role/Role";
 import Product from "./pages/product/Product";
 import ProductDetails from "./pages/product-details/Product-details";
+import Profile from "./pages/auth/profile/Profile";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/comment" index element={<Comment />} />
         <Route path="/supplier" index element={<Supplier />} />
         <Route path="/user" index element={<USer />} />
+        <Route path="/profile" index element={<Profile/>}></Route>
         <Route path="/role" index element={<Role />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

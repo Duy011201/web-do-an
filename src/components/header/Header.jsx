@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Header() {
   const [role, setRole] = useState("");
   useEffect(() => {
-    localStorage.setItem("role", "admin");
+    // localStorage.setItem("role", "admin");
     // localStorage.setItem("role", "employee");
-    // localStorage.setItem("role", "user");
+    localStorage.setItem("role", "user");
     // localStorage.setItem("role", "");
     setRole(setting.ROLE_LOCAL);
   }, []);
@@ -192,7 +192,7 @@ export default function Header() {
                   </a>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link className="dropdown-item" to="/personal">
+                      <Link className="dropdown-item" to="/profile">
                         Thông tin cá nhân
                       </Link>
                     </li>
@@ -200,7 +200,7 @@ export default function Header() {
                       <hr className="dropdown-divider" />
                     </li>
                     <li>
-                      <Link className="dropdown-item" to="/logout">
+                      <Link className="dropdown-item" to="/home">
                         Đăng xuất
                       </Link>
                     </li>

@@ -34,7 +34,17 @@ export const CHECK_EMAIL = check => {
     check
   );
 };
-
+export const GET_PROFILE_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.GET_PROFILE_BY_ID}?id=${id}`
+  );
+};
+export const UPDATE_PROFILE_BY_ID =updateData =>{
+  return axios.post(
+      `${setting.BASE_URL + setting.URL_API.UPDATE_PROFILE_BY_ID}`,
+      updateData
+  );
+};
 // export const CREATE_USER = newData => {
 //   return axios.post(
 //     `${setting.BASE_URL}${setting.URL_API.CREATE_USER}`,
