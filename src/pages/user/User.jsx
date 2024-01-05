@@ -48,6 +48,16 @@ export default function User() {
       }));
     };
 
+    const handleRadioChange = (event) => {
+      const selectedRoleId = event.target.value;
+      const updatedRoleID = [selectedRoleId]; // Chỉ lưu trữ một giá trị roleID
+    
+      setFormData({
+        ...formData,
+        roleID: updatedRoleID,
+      });
+    };
+
     const handleCheckboxChange = (event) => {
       const { value, checked } = event.target;
       
@@ -341,7 +351,7 @@ export default function User() {
                   <div div className="col-md-6 mt-10">
                     <label htmlFor="roleID">Quyền</label>
                     <div>
-                      {listRole.map(e => (
+                      {/* {listRole.map(e => (
                          <div key={e.id}>
                           <input
                             type="checkbox"
@@ -354,6 +364,34 @@ export default function User() {
                             </input>
                             <label>{e.code}</label>
                          </div>
+                      ))} */}
+                      {listRole.map(e => (
+                        <div key={e.id}>
+                          {["admin", "employee", "user"].includes(e.code) ? (
+                            <div>
+                              <input
+                                type="radio"
+                                id={e.id}
+                                value={e.id}
+                                name="role"
+                                onChange={handleRadioChange}
+                                checked={formData.roleID.some((role) => role === e.id.toString())}
+                              />
+                              <label>{e.code}</label>
+                            </div>
+                          ) : (
+                            <div>
+                              <input
+                                type="checkbox"
+                                id={e.id}
+                                value={e.id}
+                                onChange={handleCheckboxChange}
+                                checked={formData.roleID.some((role) => role === e.id.toString())}
+                              />
+                              <label>{e.code}</label>
+                            </div>
+                          )}
+                        </div>
                       ))}
                     </div>
                   </div>
