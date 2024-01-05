@@ -301,3 +301,11 @@ export const DELETE_INVOICE_DETAIL_BY_ID = id => {
   );
 };
 
+// Report
+export const GET_ALL_REPORT_INVOICE = () => {
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_REPORT_INVOICE);
+};
+
+export const GET_ALL_REPORT_PRODUCT = () => {
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_REPORT_PRODUCT);
+};

@@ -94,6 +94,10 @@ const URL_API = {
   CREATE_INVOICE_DETAIL: "/invoice-detail/create",
   DELETE_INVOICE_DETAIL_BY_ID: "/invoice-detail/delete",
   UPDATE_INVOICE_DETAIL_BY_ID: "/invoice-detail/update",
+  GET_ALL_PROMOTIONS: "/promotions/all",
+
+  GET_ALL_REPORT_PRODUCT: "/report/product",
+  GET_ALL_REPORT_INVOICE: "/report/invoice",
 };
 
 const COMMENT_STATUS = {
@@ -120,6 +124,11 @@ const STATUS_CODE = {
   SERVER_ERROR: 500,
 };
 
+const REPORT_TYPE = {
+  MONTH: { code: "MONTH", name: "Tháng" },
+  YEAR: { code: "YEAR", name: "Năm" },
+};
+
 const setting = Object.freeze({
   ROLE_LOCAL,
   LIST_ROLE,
@@ -131,6 +140,7 @@ const setting = Object.freeze({
   COMMENT_MSG,
   ACTION,
   STATUS_CODE,
+  REPORT_TYPE,
 });
 
 export default setting;

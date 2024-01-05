@@ -9,6 +9,7 @@ import {
   faPlus,
   faPencil,
   faTrash,
+  faFileExcel
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -20,5 +21,6 @@ library.add(
   faArrowRotateLeft,
   faPlus,
   faPencil,
-  faTrash
+  faTrash,
+  faFileExcel
 );
