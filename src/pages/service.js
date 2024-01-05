@@ -6,7 +6,6 @@ export const LOGIN = user => {
   return axios.post(setting.BASE_URL + setting.URL_API.LOGIN, user);
 };
 
-
 export const REGISTER = newData => {
   return axios.post(
     `${setting.BASE_URL}${setting.URL_API.CREATE_REGISTER}`,
@@ -19,30 +18,24 @@ export const REGISTER = newData => {
   );
 };
 export const UPDATE_AUTH_BY_ID = updateData => {
-  return axios.post(
-    `${setting.BASE_URL + setting.URL_API.UPDATE_AUTH_BY_ID}`,
-    {
-      email: updateData.email,
-      matKhau: updateData.password
-    }
-  );
+  return axios.post(`${setting.BASE_URL + setting.URL_API.UPDATE_AUTH_BY_ID}`, {
+    email: updateData.email,
+    matKhau: updateData.password,
+  });
 };
 
 export const CHECK_EMAIL = check => {
-  return axios.post(
-    setting.BASE_URL + setting.URL_API.CHECK_EMAIL,
-    check
-  );
+  return axios.post(setting.BASE_URL + setting.URL_API.CHECK_EMAIL, check);
 };
 export const GET_PROFILE_BY_ID = id => {
   return axios.post(
     `${setting.BASE_URL}${setting.URL_API.GET_PROFILE_BY_ID}?id=${id}`
   );
 };
-export const UPDATE_PROFILE_BY_ID =updateData =>{
+export const UPDATE_PROFILE_BY_ID = updateData => {
   return axios.post(
-      `${setting.BASE_URL + setting.URL_API.UPDATE_PROFILE_BY_ID}`,
-      updateData
+    `${setting.BASE_URL + setting.URL_API.UPDATE_PROFILE_BY_ID}`,
+    updateData
   );
 };
 // export const CREATE_USER = newData => {
@@ -124,7 +117,7 @@ export const DELETE_COMMENT_BY_ID = id => {
 //User
 export const GET_ALL_USER = () => {
   return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_USER);
-}
+};
 
 export const CREATE_USER = newData => {
   return axios.post(
@@ -145,7 +138,6 @@ export const DELETE_USER_BY_ID = id => {
     `${setting.BASE_URL}${setting.URL_API.DELETE_USER_BY_ID}?id=${id}`
   );
 };
-
 
 // Roles
 export const GET_ALL_ROLE = () => {
@@ -215,9 +207,7 @@ export const GET_PROMOTION_BY_ID = id => {
 };
 
 export const UPDATE_PROMOTION_BY_ID = updateData => {
-  return axios.post(
-    setting.BASE_URL + setting.URL_API.UPDATE_PROMOTION_BY_ID,
-    );
+  return axios.post(setting.BASE_URL + setting.URL_API.UPDATE_PROMOTION_BY_ID);
 };
 
 export const DELETE_PROMOTION_BY_ID = id => {
@@ -227,16 +217,12 @@ export const DELETE_PROMOTION_BY_ID = id => {
 };
 
 export const CREATE_PROMOTION = newData => {
-  return axios.post(
-    `${setting.BASE_URL}${setting.URL_API.CREATE_PROMOTION}`,
-    );
-  }
+  return axios.post(`${setting.BASE_URL}${setting.URL_API.CREATE_PROMOTION}`);
+};
 
 // INVOICE
 export const GET_ALL_INVOICE = () => {
-  return axios.post(
-    setting.BASE_URL + setting.URL_API.GET_ALL_INVOICE
-  );
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_INVOICE);
 };
 
 export const GET_INVOICE_BY_ID = id => {
@@ -300,16 +286,22 @@ export const DELETE_INVOICE_DETAIL_BY_ID = id => {
 };
 
 // Report
-export const GET_ALL_REPORT_INVOICE = () => {
-  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_REPORT_INVOICE);
+export const GET_ALL_REPORT_INVOICE = body => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.GET_ALL_REPORT_INVOICE,
+    body
+  );
 };
 
-export const GET_ALL_REPORT_PRODUCT = () => {
-  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_REPORT_PRODUCT);
-}
+export const GET_ALL_REPORT_PRODUCT = body => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.GET_ALL_REPORT_PRODUCT,
+    body
+  );
+};
 
 //Cart
-export const GET_ALL_CART= () => {
+export const GET_ALL_CART = () => {
   return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_CART);
 };
 
