@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { error, success } from "/src/common/sweetalert2.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "../../../components/loading/Loading";
-import { LOGIN } from "../../service";
+import { GET_ALL_USER, LOGIN } from "../../service";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -37,6 +37,11 @@ export default function Login() {
       success("Login Success");
       window.location = "http://localhost:5173/";
       localStorage.setItem("user", JSON.stringify({ id: response.data[0].id }));
+      const us = await GET_ALL_USER();
+      const users = us.data.data.find(user => user.id === response.data[0].id);
+      if (users) {
+        localStorage.setItem("role", JSON.stringify({ role: users.roleCodes }));
+      }
       return;
     } else {
       error("Login Failed");

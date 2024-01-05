@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Header() {
   const [role, setRole] = useState("");
   useEffect(() => {
-    // localStorage.setItem("role", "admin");
-    // localStorage.setItem("role", "employee");
-    localStorage.setItem("role", "user");
-    // localStorage.setItem("role", "");
+    localStorage.setItem("role", "admin");
+    // // localStorage.setItem("role", "employee");
+    // localStorage.setItem("role", "user");
+    // // localStorage.setItem("role", "");
     setRole(setting.ROLE_LOCAL);
   }, []);
 

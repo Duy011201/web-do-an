@@ -9,7 +9,7 @@ export const LOGIN = user => {
 
 export const REGISTER = newData => {
   return axios.post(
-    `${setting.BASE_URL}${setting.URL_API.CREATE_USER}`,
+    `${setting.BASE_URL}${setting.URL_API.CREATE_REGISTER}`,
     newData
     // {
     //   hoten: newData.username,

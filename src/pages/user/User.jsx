@@ -35,7 +35,7 @@ export default function User() {
     const [action, setAction] = React.useState("");
     const [formData, setFormData] = useState({
         id: "",
-        ten: "",
+        hoten: "",
         email: "",
         sdt: "",
         roleID: [],
@@ -63,7 +63,7 @@ export default function User() {
     };
     const columns = [
       { field: "id", headerName: "id", width: 70 },
-      { field: "ten", headerName: "Tên", width: 150 },
+      { field: "hoten", headerName: "Tên", width: 150 },
       { field: "email", headerName: "Email", width: 180 },
       { field: "sdt", headerName: "Số điện thoại", width: 120 },
       { field: "roleID", headerName: "ID Quyền", width: 150 },
@@ -157,7 +157,7 @@ export default function User() {
     };
     const createUser = async () => {
       setOpen(false);
-      if (isEmptyNullUndefined(formData.ten)) {
+      if (isEmptyNullUndefined(formData.hoten)) {
         error("Bạn chưa nhập tên");
         return;
       }
@@ -165,8 +165,18 @@ export default function User() {
         error("Bạn chưa nhập email");
         return;
       }
+      
+      const duplicateEmail = listUser.some(user => user.email === formData.email);
+      if (duplicateEmail) {
+        error("Email đã tồn tại");
+        return;
+      }
       if (isEmptyNullUndefined(formData.sdt)) {
         error("Bạn chưa nhập số điện thoại");
+        return;
+      }
+      if (!/^\d+$/.test(formData.sdt)) {
+        error("Số điện thoại chỉ được chứa các kí tự số");
         return;
       }
       if (isEmptyNullUndefined(formData.roleID)) {
@@ -187,7 +197,7 @@ export default function User() {
 
     const updateUser = async () => {
       setOpen(false);
-      if (isEmptyNullUndefined(formData.ten)) {
+      if (isEmptyNullUndefined(formData.hoten)) {
         error("Bạn chưa nhập tên");
         return;
       }
@@ -197,6 +207,10 @@ export default function User() {
       }
       if (isEmptyNullUndefined(formData.sdt)) {
         error("Bạn chưa nhập số điện thoại");
+        return;
+      }
+      if (!/^\d+$/.test(formData.sdt)) {
+        error("Số điện thoại chỉ được chứa các kí tự số");
         return;
       }
       if (isEmptyNullUndefined(formData.roleID)) {
@@ -220,7 +234,7 @@ export default function User() {
           if (status === setting.ACTION.OPEN) {
             setFormData({
               id: "",
-              ten: "",
+              hoten: "",
               email: "",
               sdt: "",
               roleID: [],
@@ -348,8 +362,8 @@ export default function User() {
                     <label htmlFor="ten">Tên</label>
                     <input
                       type="text"
-                      name="ten"
-                      value={formData.ten}
+                      name="hoten"
+                      value={formData.hoten}
                       onChange={handleInputChange}
                       className="form-control"
                       placeholder="Nhập tên"
@@ -358,7 +372,7 @@ export default function User() {
                   </div>
 
                   <div className="form-group mt-10 col-md-6">
-                    <label htmlFor="ten">Email</label>
+                    <label htmlFor="email">Email</label>
                     <input
                       type="text"
                       name="email"
@@ -371,7 +385,7 @@ export default function User() {
                   </div>
 
                   <div className="form-group mt-10 col-md-6">
-                    <label htmlFor="ten">Số điện thoại</label>
+                    <label htmlFor="sdt">Số điện thoại</label>
                     <input
                       type="text"
                       name="sdt"
