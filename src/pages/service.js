@@ -203,7 +203,101 @@ export const DELETE_SUPPlIER_BY_ID = id => {
   );
 };
 
-// Promtions
-export const GET_ALL_PROMOTIONS = () => {
-  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_PROMOTIONS);
+// Promotion
+export const GET_ALL_PROMOTION = () => {
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_PROMOTION);
 };
+
+export const GET_PROMOTION_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.GET_PROMOTION_BY_ID}?id=${id}`
+  );
+};
+
+export const UPDATE_PROMOTION_BY_ID = updateData => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.UPDATE_PROMOTION_BY_ID,
+    updateData
+  );
+};
+
+export const CREATE_PROMOTION = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_PROMOTION}`,
+    newData
+  );
+};
+
+export const DELETE_PROMOTION_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.DELETE_PROMOTION_BY_ID}?id=${id}`
+  );
+};
+
+// INVOICE
+export const GET_ALL_INVOICE = () => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.GET_ALL_INVOICE
+  );
+};
+
+export const GET_INVOICE_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.GET_INVOICE_BY_ID}?id=${id}`
+  );
+};
+
+export const UPDATE_INVOICE_BY_ID = updateData => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.UPDATE_INVOICE_BY_ID,
+    updateData
+  );
+};
+
+export const CREATE_INVOICE = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_INVOICE}`,
+    newData
+  );
+};
+
+export const DELETE_INVOICE_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.DELETE_INVOICE_BY_ID}?id=${id}`
+  );
+};
+
+// INVOICE Details
+export const GET_ALL_INVOICE_DETAIL = body => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.GET_ALL_INVOICE_DETAIL,
+    body
+  );
+};
+
+export const GET_INVOICE_DETAIL_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.GET_INVOICE_DETAIL_BY_ID}?id=${id}`
+  );
+};
+
+export const UPDATE_INVOICE_DETAIL_BY_ID = updateData => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.UPDATE_INVOICE_DETAIL_BY_ID,
+    updateData
+  );
+};
+
+export const CREATE_INVOICE_DETAIL = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_INVOICE_DETAIL}`,
+    newData
+  );
+};
+
+export const DELETE_INVOICE_DETAIL_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.DELETE_INVOICE_DETAIL_BY_ID}?id=${id}`
+  );
+};
+

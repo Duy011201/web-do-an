@@ -20,7 +20,7 @@ import {
   DELETE_PRODUCT_BY_ID,
   UPDATE_PRODUCT_BY_ID,
   CREATE_PRODUCT,
-  GET_ALL_PROMOTIONS,
+  GET_ALL_PROMOTION,
   GET_ALL_SUPPlIER,
 } from "../service.js";
 import setting from "../../setting.js";
@@ -331,7 +331,7 @@ export default function Product() {
     try {
       setLoading(true);
       let listcode;
-      await   GET_ALL_PROMOTIONS().then(res => {
+      await   GET_ALL_PROMOTION().then(res => {
         setLoading(false);
         if (res.status === setting.STATUS_CODE.OK) {
           listcode = res.data.data;

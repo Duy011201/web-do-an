@@ -77,7 +77,23 @@ const URL_API = {
   DELETE_PRODUCT_BY_ID: "/product/delete",
   UPDATE_PRODUCT_BY_ID: "/product/update",
 
-  GET_ALL_PROMOTIONS: "/promotions/all"
+  GET_PROMOTION_BY_ID: "/promotion",
+  GET_ALL_PROMOTION: "/promotion/all",
+  CREATE_PROMOTION: "/promotion/create",
+  DELETE_PROMOTION_BY_ID: "/promotion/delete",
+  UPDATE_PROMOTION_BY_ID: "/promotion/update",
+
+  GET_ALL_INVOICE: "/invoice/all",
+  GET_INVOICE_BY_ID: "/invoice",
+  CREATE_INVOICE: "/invoice/create",
+  DELETE_INVOICE_BY_ID: "/invoice/delete",
+  UPDATE_INVOICE_BY_ID: "/invoice/update",
+
+  GET_ALL_INVOICE_DETAIL: "/invoice-detail/all",
+  GET_INVOICE_DETAIL_BY_ID: "/invoice-detail",
+  CREATE_INVOICE_DETAIL: "/invoice-detail/create",
+  DELETE_INVOICE_DETAIL_BY_ID: "/invoice-detail/delete",
+  UPDATE_INVOICE_DETAIL_BY_ID: "/invoice-detail/update",
 };
 
 const COMMENT_STATUS = {
