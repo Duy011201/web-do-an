@@ -217,15 +217,7 @@ export const GET_PROMOTION_BY_ID = id => {
 export const UPDATE_PROMOTION_BY_ID = updateData => {
   return axios.post(
     setting.BASE_URL + setting.URL_API.UPDATE_PROMOTION_BY_ID,
-    updateData
-  );
-};
-
-export const CREATE_PROMOTION = newData => {
-  return axios.post(
-    `${setting.BASE_URL}${setting.URL_API.CREATE_PROMOTION}`,
-    newData
-  );
+    );
 };
 
 export const DELETE_PROMOTION_BY_ID = id => {
@@ -233,6 +225,12 @@ export const DELETE_PROMOTION_BY_ID = id => {
     `${setting.BASE_URL}${setting.URL_API.DELETE_PROMOTION_BY_ID}?id=${id}`
   );
 };
+
+export const CREATE_PROMOTION = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_PROMOTION}`,
+    );
+  }
 
 // INVOICE
 export const GET_ALL_INVOICE = () => {
@@ -308,4 +306,35 @@ export const GET_ALL_REPORT_INVOICE = () => {
 
 export const GET_ALL_REPORT_PRODUCT = () => {
   return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_REPORT_PRODUCT);
+}
+
+//Cart
+export const GET_ALL_CART= () => {
+  return axios.post(setting.BASE_URL + setting.URL_API.GET_ALL_CART);
+};
+
+export const GET_CART_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.GET_CART_BY_ID}?id=${id}`
+  );
+};
+
+export const UPDATE_CART_BY_ID = updateData => {
+  return axios.post(
+    setting.BASE_URL + setting.URL_API.UPDATE_CART_BY_ID,
+    updateData
+  );
+};
+
+export const CREATE_CART = newData => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.CREATE_CART}`,
+    newData
+  );
+};
+
+export const DELETE_CART_BY_ID = id => {
+  return axios.post(
+    `${setting.BASE_URL}${setting.URL_API.DELETE_cART_BY_ID}?id=${id}`
+  );
 };

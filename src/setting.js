@@ -1,3 +1,5 @@
+
+
 const ROLE_LOCAL = localStorage.getItem("role");
 
 const LIST_ROLE = [
@@ -98,7 +100,16 @@ const URL_API = {
 
   GET_ALL_REPORT_PRODUCT: "/report/product",
   GET_ALL_REPORT_INVOICE: "/report/invoice",
+
+  //Cart
+  GET_ALL_CART: "/cart/all",
+  GET_CART_BY_ID: "/cart",
+  UPDATE_CART_BY_ID: "/cart/update",
+  CREATE_CART: "/cart/create",
+  DELETE_cART_BY_ID: "/cart/delete",
 };
+
+
 
 const COMMENT_STATUS = {
   PENDING: "pending",
@@ -114,8 +125,24 @@ const ACTION = {
   ADD: "add",
   UPDATE: "update",
   DELETE: "delete",
+  INVOICE: "invoice",
   OPEN: true,
   CLOSE: false,
+};
+
+const PTTT = {
+  COD: { code: "COD", name: "Thanh toán khi nhận hàng" },
+  ZALO: { code: "ZALO", name: "Thanh toán ZaloPay" },
+};
+
+const STATUS_INVOICE = {
+  CXN: { code: "CXN", name: "Chờ xác nhận" },
+  DXN: { code: "DXN", name: "Đã xác nhận" },
+  DGH: { code: "DGH", name: "Đang giao hàng" },
+  DAGH: { code: "DAGH", name: "Đã giao hàng" },
+  CTT: { code: "CTT", name: "Chờ thanh toán" },
+  DTT: { code: "DTT", name: "Đã thanh toán" },
+  DH: { code: "DH", name: "Đã hủy" },
 };
 
 const STATUS_CODE = {
@@ -141,6 +168,8 @@ const setting = Object.freeze({
   ACTION,
   STATUS_CODE,
   REPORT_TYPE,
+  PTTT,
+  STATUS_INVOICE
 });
 
 export default setting;

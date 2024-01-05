@@ -14,6 +14,7 @@ import Profile from "./pages/auth/profile/Profile";
 import Promotion from "./pages/promotion/Promotion";
 import Invoice from "./pages/invoice/Invoice";
 import Report from "./pages/report/Report";
+import Cart from "./pages/cart/cart";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
         <Route path="/product-detail" element={<ProductDetails />} />
         <Route path="/product-detail/:id" element={<ProductDetails />} />
         <Route path="/report" element={<Report />} />
+        <Route path="/promotion" element={<Promotion />} />
+        <Route path="/invoice" element={<Invoice />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

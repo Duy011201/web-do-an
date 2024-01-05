@@ -128,8 +128,8 @@ export default function User() {
         setLoading(false);
       }
     };
-    const getrole = listUser.map(e => e.roleID.split(','));
-    console.log(getrole);
+    // const getrole = listUser.map(e => e.roleID.split(','));
+    console.log(listUser);
     const getALLRole = async () => {
       try {
         setLoading(true);
@@ -359,7 +359,7 @@ export default function User() {
                   </div>
                   
                   <div className="form-group mt-10 col-md-6">
-                    <label htmlFor="ten">Tên</label>
+                    <label htmlFor="hoten">Tên</label>
                     <input
                       type="text"
                       name="hoten"
