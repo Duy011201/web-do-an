@@ -542,7 +542,8 @@ export default function Product() {
                     placeholder="Nhập thời gian bảo hành"
                     required
                   />
-                </div><div className="form-group mt-10 col-md-6">
+                </div>
+                <div className="form-group mt-10 col-md-6">
                   <label htmlFor="mauSac">Màu sắc</label>
                   <input
                     type="text"

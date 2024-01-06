@@ -36,7 +36,7 @@ export default function Header() {
             {role === "admin" ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" aria-current="page" to="/cart">
+                  <Link className="nav-link" aria-current="page" to="/user-cart">
                     Giỏ hàng
                   </Link>
                 </li>

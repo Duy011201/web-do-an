@@ -23,6 +23,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Report() {
   const [loading, setLoading] = useState(false);
   const [action, setAction] = React.useState({ option: true, time: "MONTH" });
+  const [listProductMonth, setListProductMonth] = useState([]);
+  const [listProductYear, setListProductYear] = useState([]);
+  const [listInvoiceMonth, setListInvoiceMonth] = useState([]);
+  const [listInvoiceYear, setListInvoiceYear] = useState([]);
   const [listData, setListData] = useState([]);
 
   const testData = [
@@ -78,42 +82,100 @@ export default function Report() {
     }));
   };
 
-  const handleAction = async (isOption, data) => {
+  const handleAction = async isOption => {
     setAction(prevData => ({
       ...prevData,
       option: isOption,
     }));
-    isOption ? getAllReportProduct() : getAllReportInvoice();
+    setTimeout(() => {
+      if (isOption) {
+        if (action.time === setting.REPORT_TYPE.MONTH.code) {
+          const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+          const dataMerged = months.map(month => {
+            const data1Item = listInvoiceMonth.find(
+              item => item.month === month
+            );
+            const data2Item = listProductMonth.find(
+              item => item.month === month
+            );
+
+            return {
+              name: "Tháng" + month,
+              month,
+              nhap: data1Item?.soLuong ?? 0,
+              xuat: data2Item?.soLuong ?? 0,
+            };
+          });
+          setListData(dataMerged);
+        } else {
+          const years = [2022, 2023, 2024];
+
+          const dataMerged = years.map(year => {
+            const data1Item = listInvoiceYear.find(item => item.year === year);
+            const data2Item = listProductYear.find(item => item.year === year);
+
+            return {
+              name: "Năm" + year,
+              year,
+              nhap: data1Item?.soLuong ?? 0,
+              xuat: data2Item?.soLuong ?? 0,
+            };
+          });
+          setListData(dataMerged);
+        }
+      } else {
+      }
+    }, 1000);
   };
 
-  const getAllReportProduct = async () => {
+  const getAllReportProduct = async body => {
     try {
       setLoading(true);
       let listReceipt;
-      await GET_ALL_REPORT_PRODUCT().then(res => {
-        setLoading(false);
-        if (res.status === setting.STATUS_CODE.OK) {
-          listReceipt = res.data.data;
-          setListData(listReceipt);
-        }
-      });
+      if (body.time === setting.REPORT_TYPE.MONTH.code) {
+        GET_ALL_REPORT_PRODUCT(body).then(res => {
+          setLoading(false);
+          if (res.status === setting.STATUS_CODE.OK) {
+            listReceipt = res.data.data;
+            setListProductMonth(listReceipt);
+          }
+        });
+      } else {
+        GET_ALL_REPORT_PRODUCT(body).then(res => {
+          setLoading(false);
+          if (res.status === setting.STATUS_CODE.OK) {
+            listReceipt = res.data.data;
+            setListProductYear(listReceipt);
+          }
+        });
+      }
     } catch (err) {
       error("Error fetching data:", err);
       setLoading(false);
     }
   };
 
-  const getAllReportInvoice = async () => {
+  const getAllReportInvoice = async body => {
     try {
       setLoading(true);
       let listExport;
-      await GET_ALL_REPORT_INVOICE().then(res => {
-        setLoading(false);
-        if (res.status === setting.STATUS_CODE.OK) {
-          listExport = res.data.data;
-          setListData(listExport);
-        }
-      });
+      if (body.time === setting.REPORT_TYPE.MONTH.code) {
+        GET_ALL_REPORT_INVOICE(body).then(res => {
+          setLoading(false);
+          if (res.status === setting.STATUS_CODE.OK) {
+            listExport = res.data.data;
+            setListInvoiceMonth(listExport);
+          }
+        });
+      } else {
+        GET_ALL_REPORT_INVOICE(body).then(res => {
+          setLoading(false);
+          if (res.status === setting.STATUS_CODE.OK) {
+            listExport = res.data.data;
+            setListInvoiceYear(listExport);
+          }
+        });
+      }
     } catch (err) {
       error("Error fetching data:", err);
       setLoading(false);
@@ -127,19 +189,16 @@ export default function Report() {
       XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
       XLSX.writeFile(wb, `${fileName}.xlsx`);
     };
-
-    return (
-      <button onClick={exportToExcel}>
-        Export to Excel
-      </button>
-    );
+    return <button onClick={exportToExcel}>Export to Excel</button>;
   };
 
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      getAllReportProduct();
-      getAllReportInvoice();
+      getAllReportProduct({ time: setting.REPORT_TYPE.MONTH.code });
+      getAllReportInvoice({ time: setting.REPORT_TYPE.MONTH.code });
+      getAllReportProduct({ time: setting.REPORT_TYPE.YEAR.code });
+      getAllReportInvoice({ time: setting.REPORT_TYPE.YEAR.code });
       setLoading(false);
     }, 500);
   }, []);
@@ -159,10 +218,7 @@ export default function Report() {
             </div>
             <div className="row mt-20">
               <div className="col-md-2 mt-10">
-                <div
-                  className="form-check"
-                  onClick={() => handleAction(true, setting.ACTION.ADD)}
-                >
+                <div className="form-check" onClick={() => handleAction(true)}>
                   <input
                     type="radio"
                     className="form-check-input"
@@ -172,11 +228,11 @@ export default function Report() {
                     checked={action.option}
                     readOnly
                   />
-                  Hóa đơn
+                  Sản phẩm
                 </div>
                 <div
                   className="form-check mt-20"
-                  onClick={() => handleAction(false, setting.ACTION.ADD)}
+                  onClick={() => handleAction(false)}
                 >
                   <input
                     type="radio"
@@ -187,7 +243,7 @@ export default function Report() {
                     checked={!action.option}
                     readOnly
                   />
-                  Sản phẩm
+                  Hóa đơn
                 </div>
                 <div className="mt-30">
                   <label htmlFor="">Thời gian</label>
@@ -224,9 +280,9 @@ export default function Report() {
               </div>
               <div className="col-md-10 mt-10">
                 <AreaChart
-                  width={730}
+                  width={1000}
                   height={250}
-                  data={testData}
+                  data={listData}
                   margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                 >
                   <defs>
@@ -245,14 +301,14 @@ export default function Report() {
                   <Tooltip />
                   <Area
                     type="monotone"
-                    dataKey="uv"
+                    dataKey="nhap"
                     stroke="#8884d8"
                     fillOpacity={1}
                     fill="url(#colorUv)"
                   />
                   <Area
                     type="monotone"
-                    dataKey="pv"
+                    dataKey="xuat"
                     stroke="#82ca9d"
                     fillOpacity={1}
                     fill="url(#colorPv)"

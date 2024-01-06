@@ -16,6 +16,7 @@ import Loading from "../../components/loading/Loading.jsx";
 
 import "../product-details/styles.scss";
 import {
+  CREATE_CART,
   GET_ALL_PRODUCT,
   DELETE_PRODUCT_BY_ID,
   UPDATE_PRODUCT_BY_ID,
@@ -30,6 +31,12 @@ import { data } from "jquery";
 export default function ProductDetails() {
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState({});
+  const [formData, setFormData] = useState({
+    id: "",
+    userID: "",
+    productID: "",
+    soLuong:"",
+  });
 
   const getProductByID = async () => {
     try {
@@ -51,7 +58,6 @@ export default function ProductDetails() {
       setLoading(false);
     }
   };
-  console.log(product);
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
@@ -67,22 +73,73 @@ export default function ProductDetails() {
     return formatter.format(amount);
   }
   const giaKhuyenMai = formatCurrency((product.donGia * product.code) / 100);
-  console.log(giaKhuyenMai);
+
+  const handleDialog = async (status, action, data) => {
+    switch (action) {
+      case setting.ACTION.ADD:
+        setFormData({});
+        break;
+      case setting.ACTION.UPDATE:
+        if (status === setting.ACTION.OPEN) {
+          setFormData(data.row);
+        } else {
+          setFormData({});
+        }
+        break;
+      case setting.ACTION.DELETE:
+        confirmDialog("Bạn muốn xóa sản phẩm này!").then(async result => {
+          if (result.value) {
+            setLoading(true);
+            await DELETE_PRODUCT_BY_ID(data.id).then(res => {
+              setLoading(false);
+              if (res.status === setting.STATUS_CODE.OK) {
+                success(res.data.msg);
+                getALLProduct();
+              } else {
+                error(res.data.msg);
+              }
+            });
+          }
+        });
+        break;
+    }
+  };
+
+  const createCart = async () => {
+    
+    let payLoad={
+      userID: JSON.parse(localStorage.getItem("user")).id,
+      productID: product.id,
+      soLuong: formData.soLuong,
+      };
+
+    setLoading(true);
+    await CREATE_CART(payLoad).then(res => {
+      setLoading(false);
+      if (res.status === setting.STATUS_CODE.OK) {
+        success(res.data.msg);
+      } else {
+        error(res.data.msg);
+      }
+    });
+  };
+  
+
   return (
     <div>
-      <div class="container bootdey">
-        <div class="col-md-12">
-          <section class="panel">
-            <div class="panel-body">
-              <div class="col-md-6">
-                <div class="pro-img-details">
+      <div className="container bootdey">
+        <div className="col-md-12">
+          <section className="panel">
+            <div className="panel-body">
+              <div className="col-md-6">
+                <div className="pro-img-details">
                   <img src={product.anh} />
                 </div>
               </div>
-              <div class="col-md-6">
-                <h class="pro-d-title"></h>
+              <div className="col-md-6">
+                <h className="pro-d-title"></h>
                 <p>
-                  <span class="posted_in">
+                  <span className="posted_in">
                     {" "}
                     <strong>Mô tả sản phẩm: </strong>{" "}
                     <a rel="tag" href="#/">
@@ -91,22 +148,22 @@ export default function ProductDetails() {
                     ,{" "}
                   </span>
                 </p>
-                <div class="product_meta">
-                  <span class="posted_in">
+                <div className="product_meta">
+                  <span className="posted_in">
                     {" "}
                     <strong>Hệ điều hành:</strong>{" "}
                     <a rel="tag" href="#/">
                       {product.heDieuHanh}
                     </a>
                   </span>
-                  <span class="tagged_as">
+                  <span className="tagged_as">
                     <strong>Màu sắc:</strong>{" "}
                     <a rel="tag" href="#/">
                       {product.mauSac}
                     </a>
                     .
                   </span>
-                  <span class="tagged_as">
+                  <span className="tagged_as">
                     <strong>Bảo hành:</strong>{" "}
                     <a rel="tag" href="#/">
                       {product.baoHanh}
@@ -114,25 +171,23 @@ export default function ProductDetails() {
                     .
                   </span>
                 </div>
-                <div class="m-bot15">
+                <div className="m-bot15">
                   {" "}
                   <strong>Đơn Giá : </strong>{" "}
-                  <span class="amount-old">{product.donGia}</span>{" "}
-                  <span class="pro-price"> {giaKhuyenMai}</span>
-                </div>
-                <div class="form-group">
-                  <label>
-                    <strong>Số lượng: </strong>
-                  </label>
-                  <input type="quantiy" class="quantiy quantity" />
+                  <span className="amount-old">{product.donGia}</span>{" "}
+                  <span className="pro-price"> {giaKhuyenMai}</span>
                 </div>
                 <p>
-                  <button
-                    class="btn btn-round btn-danger addcart"
-                    type="button"
-                  >
-                    <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-                  </button>
+                
+                <button
+                  type="button"
+                  className="btn btn-round btn-danger addcart"
+                  onClick={() =>createCart()
+                  }
+                >
+                  <FontAwesomeIcon className="icon-add mr-5" icon="fa fa-shopping-cart" />
+                  Thêm vào giỏ hàng
+                </button>
                 </p>
               </div>
             </div>
