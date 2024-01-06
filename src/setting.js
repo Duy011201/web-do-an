@@ -1,3 +1,5 @@
+
+
 const ROLE_LOCAL = localStorage.getItem("role");
 
 const LIST_ROLE = [
@@ -20,33 +22,94 @@ const LIST_ROLE = [
 ];
 
 const LIST_FILTER_PRODUCER = [
-  { key: "all", name: "Tất cả" },
-  { key: "apple", name: "Apple" },
-  { key: "samsung", name: "Samsung" },
-  { key: "oppo", name: "Oppo" },
-  { key: "xiaomi", name: "Xiaomi" },
-  { key: "realme", name: "Realme" },
+  { key: "apple", name: "Apple", isChecked: false },
+  { key: "samsung", name: "Samsung", isChecked: false },
+  { key: "oppo", name: "Oppo", isChecked: false },
+  { key: "xiaomi", name: "Xiaomi", isChecked: false },
+  { key: "realme", name: "Realme", isChecked: false },
 ];
 
 const LIST_FILTER_PRICE = [
-  { key: "all", name: "Tất cả" },
-  { key: "<2", name: "Dưới 2 triệu" },
-  { key: "2-4", name: "Từ 2 - 4 triêu" },
-  { key: "4-7", name: "Từ 4 - 7 triêu" },
-  { key: ">7", name: "Trên 7 triêu" },
+  { key: "<2", name: "Dưới 2 triệu", isChecked: false },
+  { key: "2-4", name: "Từ 2 - 4 triêu", isChecked: false },
+  { key: "4-7", name: "Từ 4 - 7 triêu", isChecked: false },
+  { key: ">7", name: "Trên 7 triêu", isChecked: false },
 ];
 
 const BASE_URL = "http://localhost:8080/api";
 const URL_API = {
   LOGIN: "/login",
+  GET_ALL_USER: "/login/all",
+  GET_USER_BY_ID: "/login/user",
+  UPDATE_AUTH_BY_ID: "/forgot/update",
+  CREATE_REGISTER:"/login/create",
+  CHECK_EMAIL:"/forgot/checkemail",
+  GET_PROFILE_BY_ID:"/profile",
+  UPDATE_PROFILE_BY_ID:"/profile/update",
 
+  // Comments
   GET_COMMENT_BY_ID: "/comment",
   GET_ALL_COMMENT: "/comment/all",
-  DELETE_COMMENT_BY_ID: "/comment",
+  DELETE_COMMENT_BY_ID: "/comment/delete",
   UPDATE_COMMENT_BY_ID: "/comment/update",
 
+  //User
+  GET_ALL_USER: "/user/all",
+  CREATE_USER: "/user/create",
+  DELETE_USER_BY_ID: "/user/delete",
+  UPDATE_USER_BY_ID: "/user/update",
+
+  //Roles
+  GET_ROLE_BY_ID: "/role",
+  GET_ALL_ROLE: "/role/all",
+  CREATE_ROLE: "/role/create",
+  DELETE_ROLE_BY_ID: "/role/delete",
+  UPDATE_ROLE_BY_ID: "/role/update",
+
+  //Supplier
+  GET_SUPPlIER_BY_ID: "/supplier",
+  GET_ALL_SUPPlIER: "/supplier/all",
+  CREATE_SUPPlIER: "/supplier/create",
+  DELETE_SUPPlIER_BY_ID: "/supplier/delete",
+  UPDATE_SUPPlIER_BY_ID: "/supplier/update",
+
   GET_ALL_PRODUCT: "/product/all",
+  GET_PRODUCT_BY_ID: "/product",
+  CREATE_PRODUCT: "/product/create",
+  DELETE_PRODUCT_BY_ID: "/product/delete",
+  UPDATE_PRODUCT_BY_ID: "/product/update",
+
+  GET_PROMOTION_BY_ID: "/promotion",
+  GET_ALL_PROMOTION: "/promotion/all",
+  CREATE_PROMOTION: "/promotion/create",
+  DELETE_PROMOTION_BY_ID: "/promotion/delete",
+  UPDATE_PROMOTION_BY_ID: "/promotion/update",
+
+  GET_ALL_INVOICE: "/invoice/all",
+  GET_INVOICE_BY_ID: "/invoice",
+  CREATE_INVOICE: "/invoice/create",
+  DELETE_INVOICE_BY_ID: "/invoice/delete",
+  UPDATE_INVOICE_BY_ID: "/invoice/update",
+
+  GET_ALL_INVOICE_DETAIL: "/invoice-detail/all",
+  GET_INVOICE_DETAIL_BY_ID: "/invoice-detail",
+  CREATE_INVOICE_DETAIL: "/invoice-detail/create",
+  DELETE_INVOICE_DETAIL_BY_ID: "/invoice-detail/delete",
+  UPDATE_INVOICE_DETAIL_BY_ID: "/invoice-detail/update",
+  GET_ALL_PROMOTIONS: "/promotions/all",
+
+  GET_ALL_REPORT_PRODUCT: "/report/product",
+  GET_ALL_REPORT_INVOICE: "/report/invoice",
+
+  //Cart
+  GET_ALL_CART: "/cart/all",
+  GET_CART_BY_ID: "/cart",
+  UPDATE_CART_BY_ID: "/cart/update",
+  CREATE_CART: "/cart/create",
+  DELETE_cART_BY_ID: "/cart/delete",
 };
+
+
 
 const COMMENT_STATUS = {
   PENDING: "pending",
@@ -62,14 +125,35 @@ const ACTION = {
   ADD: "add",
   UPDATE: "update",
   DELETE: "delete",
+  INVOICE: "invoice",
   OPEN: true,
   CLOSE: false,
+};
+
+const PTTT = {
+  COD: { code: "COD", name: "Thanh toán khi nhận hàng" },
+  ZALO: { code: "ZALO", name: "Thanh toán ZaloPay" },
+};
+
+const STATUS_INVOICE = {
+  CXN: { code: "CXN", name: "Chờ xác nhận" },
+  DXN: { code: "DXN", name: "Đã xác nhận" },
+  DGH: { code: "DGH", name: "Đang giao hàng" },
+  DAGH: { code: "DAGH", name: "Đã giao hàng" },
+  CTT: { code: "CTT", name: "Chờ thanh toán" },
+  DTT: { code: "DTT", name: "Đã thanh toán" },
+  DH: { code: "DH", name: "Đã hủy" },
 };
 
 const STATUS_CODE = {
   OK: 200,
   NOT_FOUND: 404,
   SERVER_ERROR: 500,
+};
+
+const REPORT_TYPE = {
+  MONTH: { code: "MONTH", name: "Tháng" },
+  YEAR: { code: "YEAR", name: "Năm" },
 };
 
 const setting = Object.freeze({
@@ -83,6 +167,9 @@ const setting = Object.freeze({
   COMMENT_MSG,
   ACTION,
   STATUS_CODE,
+  REPORT_TYPE,
+  PTTT,
+  STATUS_INVOICE
 });
 
 export default setting;

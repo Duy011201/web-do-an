@@ -8,9 +8,9 @@ export default function Header() {
   const [role, setRole] = useState("");
   useEffect(() => {
     localStorage.setItem("role", "admin");
-    // localStorage.setItem("role", "employee");
+    // // localStorage.setItem("role", "employee");
     // localStorage.setItem("role", "user");
-    // localStorage.setItem("role", "");
+    // // localStorage.setItem("role", "");
     setRole(setting.ROLE_LOCAL);
   }, []);
 
@@ -18,7 +18,7 @@ export default function Header() {
     <nav className="navbar navbar-expand-lg wrap-header">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          Thế giới di động
+          HUY HOÀNG MOBILE
         </Link>
         <button
           className="navbar-toggler"
@@ -36,12 +36,7 @@ export default function Header() {
             {role === "admin" ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" aria-current="page" to="/product">
-                    Sản phẩm
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" aria-current="page" to="/cart">
+                  <Link className="nav-link" aria-current="page" to="/user-cart">
                     Giỏ hàng
                   </Link>
                 </li>
@@ -49,6 +44,37 @@ export default function Header() {
                   <Link className="nav-link" aria-current="page" to="/user">
                     Người dùng
                   </Link>
+                </li>
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    to="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Sản phẩm
+                  </Link>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <Link className="dropdown-item" to="/product">
+                        Sản phẩm
+                      </Link>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/comment">
+                        Bình luận
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/supplier">
+                        Nhà cung cấp
+                      </Link>
+                    </li>
+                  </ul>
                 </li>
                 <li className="nav-item dropdown">
                   <Link
@@ -166,7 +192,7 @@ export default function Header() {
                   </a>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link className="dropdown-item" to="/personal">
+                      <Link className="dropdown-item" to="/profile">
                         Thông tin cá nhân
                       </Link>
                     </li>
@@ -174,7 +200,7 @@ export default function Header() {
                       <hr className="dropdown-divider" />
                     </li>
                     <li>
-                      <Link className="dropdown-item" to="/logout">
+                      <Link className="dropdown-item" to="/home">
                         Đăng xuất
                       </Link>
                     </li>
